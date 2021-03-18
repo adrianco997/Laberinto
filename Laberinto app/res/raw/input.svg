@@ -1,0 +1,22 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+ <g><rect fill="#ffffff" stroke="#000" stroke-width="null" stroke-opacity="null" x="50" y="150" width="500" height="300" id="svg_01" /></g>
+ <!-- <path android:fillColor="#FFFFFF" android:pathData="M50 150 H550 V450 H50 V150 Z" />-->
+<!-- \<rect fill\=\"(\#[\w\d]+)\" stroke\=\"\#000\" stroke\-width\=\"null\" stroke\-opacity\=\"null\" x\=\"(\d+)\" y\=\"(\d+)\" width\=\"(\d+)\" height\=\"(\d+)\" id\=\"svg_\d\d\" \/\>-->
+<!-- <path android:fillColor="$1" android:pathData="M$2 $3 H($2+$3) V($3+$4) H$2 V$3 Z" />-->
+ <!-- <path android:fillColor="#FFFFFF" android:pathData="M50 150 H550 V450 H50 V150 Z" />-->
+ <g><line fill="none" stroke="#000" stroke-width="10" stroke-opacity="null" fill-opacity="null" opacity="undefined" x1="50" y1="150" x2="550" y2="150" id="svg_02" stroke-linejoin="inherit" stroke-linecap="inherit" /></g>
+ <g><line fill="none" stroke="#000" stroke-width="10" stroke-opacity="null" fill-opacity="null" opacity="undefined" x1="50" y1="450" x2="550" y2="450" id="svg_03" stroke-linejoin="inherit" stroke-linecap="inherit" /></g>
+ <g>
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="50" y="150" width="125" height="75" id="svg_04" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="300" y="150" width="125" height="75" id="svg_05" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="175" y="225" width="125" height="75" id="svg_06" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="425" y="225" width="125" height="75" id="svg_07" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="50" y="300" width="125" height="75" id="svg_08" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="300" y="300" width="125" height="75" id="svg_09" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="175" y="375" width="125" height="75" id="svg_10" />
+  <rect fill="#000000" stroke="#000" stroke-width="null" stroke-opacity="null" x="425" y="375" width="125" height="75" id="svg_11" />
+ </g>
+ <g><rect fill="#FFFFFF" stroke="#000" stroke-width="null" stroke-opacity="null" x="125" y="200" width="350" height="200" id="svg_12" /></g>
+ <g>
+  <text stroke="#000" font-style="normal" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="sans-serif" font-size="55" id="svg_13" y="319" x="238" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">Start</text></g>
+</svg>

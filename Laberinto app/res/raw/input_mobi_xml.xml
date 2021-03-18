@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pdf2xml xmlns:tools="http://schemas.android.com/tools"
+    pages="1"
+    tools:ignore="MissingDefaultResource">
+  <title>Aspose</title>
+  <page width="450" height="450">
+    <font size="41" face="MRIWHG+Arial Bold" src="input_font1.ttf">
+      <text x="178.5" y="239.288" width="93.981" height="46.084">Start</text>
+    </font>
+  </page>
+</pdf2xml>

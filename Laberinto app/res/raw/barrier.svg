@@ -1,0 +1,30 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <rect fill="#894F3F" stroke="#000" stroke-width="null" stroke-opacity="null" x="50" y="50" width="500" height="500"
+      opacity="undefined"
+      stroke-dasharray="null"
+      />
+<!--  <rect fill="#ffffff" stroke="#000" stroke-width="null" stroke-opacity="null" x="50" y="150" width="500" height="300" id="svg_01" />-->
+  <!-- <path android:fillColor="#FFFFFF" android:pathData="M50 150 H550 V450 H50 V150 Z" />-->
+  <!-- \<rect fill\=\"(\#[\w\d]+)\" stroke\=\"\#000\" stroke\-width\=\"null\" stroke\-opacity\=\"null\" x\=\"(\d+)\" y\=\"(\d+)\" width\=\"(\d+)\" height\=\"(\d+)\" id\=\"svg_\d\d\" \/\>-->
+  <!-- <path android:fillColor="$1" android:pathData="M$2 $3 H($2+$3) V($3+$4) H$2 V$3 Z" />-->
+  <!-- <path android:fillColor="#FFFFFF" android:pathData="M50 150 H550 V450 H50 V150 Z" />-->
+  
+  
+  
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="50" y1="150" x2="550" y2="150" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="50" y1="250" x2="550" y2="250" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="50" y1="350" x2="550" y2="350" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="50" y1="450" x2="550" y2="450" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="150" y1="50" x2="150" y2="150" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="154" y1="250" x2="154" y2="350" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="149" y1="450" x2="149" y2="550" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="435" y1="50" x2="435" y2="150" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="275" y1="150" x2="275" y2="250" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="408" y1="250" x2="408" y2="350" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="240" y1="350" x2="240" y2="450" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="498" y1="350" x2="498" y2="450" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+  <line stroke-linecap="inherit" stroke-linejoin="inherit" x1="383" y1="450" x2="383" y2="550" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="10" stroke="#000" fill="none" />
+ </g>
+</svg>

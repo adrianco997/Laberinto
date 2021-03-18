@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvPregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etNombre"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/comoTeLlamas" />
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tvPregunta"
+        android:layout_toRightOf="@+id/tvPregunta"
+        android:autofillHints=""
+        android:inputType="text"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/Button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNombre"
+        android:onClick="onPulsar"
+        android:text="@string/empezarLaberinto"/>
+
+    <LinearLayout android:id="@+id/ll1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Button"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/rg1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+            <RadioButton android:id="@+id/laberinto1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="50" android:checked="false" android:gravity="center" android:onClick="selectLaberinto" android:text="@string/laberinto_01" />
+            <RadioButton android:id="@+id/laberinto2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="50" android:checked="false" android:gravity="center" android:onClick="selectLaberinto" android:text="@string/laberinto_02" />
+            <RadioButton android:id="@+id/laberinto3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="50" android:checked="false" android:gravity="center" android:onClick="selectLaberinto" android:text="@string/laberinto_03" />
+            <RadioButton android:id="@+id/laberinto4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="50" android:checked="false" android:gravity="center" android:onClick="selectLaberinto" android:text="@string/laberinto_04" />
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/rg2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+            <RadioButton android:id="@+id/modo1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="50" android:checked="false" android:gravity="center" android:onClick="selectModo" android:text="@string/modo_texto" />
+            <RadioButton android:id="@+id/modo2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="50" android:checked="false" android:gravity="center" android:onClick="selectModo" android:text="@string/modo_dibujo" />
+        </RadioGroup>
+        <ScrollView android:id="@+id/swv1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:id="@+id/tvGanardores" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="" />
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

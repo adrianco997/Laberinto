@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="200dp" android:height="200dp" android:viewportWidth="600" android:viewportHeight="600">
+    <path android:fillColor="#FFFFFF" android:pathData="M50 150 H550 V450 H50 V150 Z" />
+    <group>
+        <path android:fillColor="#000000" android:pathData="M50 150 L550 150" android:strokeWidth="10" android:strokeColor="#000000" />
+        <path android:fillColor="#000000" android:pathData="M50 450 L550 450" android:strokeWidth="10" android:strokeColor="#000000" />
+    </group>
+    <group>
+        <path android:fillColor="#000000" android:pathData="M50 150 H175 V225 H50 V150 Z" />
+        <path android:fillColor="#000000" android:pathData="M300 150 H425 V225 H300 V150 Z" />
+        <path android:fillColor="#000000" android:pathData="M175 225 H300 V300 H175 V225 Z" />
+        <path android:fillColor="#000000" android:pathData="M425 225 H550 V300 H425 V225 Z" />
+        <path android:fillColor="#000000" android:pathData="M50  300 H175 V375 H50 V300 Z" />
+        <path android:fillColor="#000000" android:pathData="M300 300 H425 V375 H300 V300 Z" />
+        <path android:fillColor="#000000" android:pathData="M175 375 H300 V450 H175 V375 Z" />
+        <path android:fillColor="#000000" android:pathData="M425 375 H550 V450 H425 V375 Z" />
+    </group>
+    <!---->
+<!--    <path android:fillColor="#ffffff" android:pathData="M125 200 H470 V400 H125 V200 Z" />-->
+<!--    <page width="450" height="450">-->
+<!--        <font size="41" face="MRIWHG+Arial Bold" src="input_font1.ttf">-->
+<!--            <text x="178.5" y="239.288" width="93.981" height="46.084">Start</text>-->
+<!--        </font>-->
+<!--    </page>-->
+</vector>
