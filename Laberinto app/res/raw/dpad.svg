@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75" width="75" height="75">
+    <defs>
+        <path id="dpad0" d="M25 25L0 25L0 50L25 50L25 75L50 75L50 50L75 50L74.99 25L50 25L50 0L25 0L25 25Z" />
+        <path id="ccc" d="M45 37.5C45 41.64 41.64 45 37.5 45C33.36 45 30 41.64 30 37.5C30 33.36 33.36 30 37.5 30C41.64 30 45 33.36 45 37.5Z" />
+        <path id="lll" d="M11.25 41.25L17.5 45L17.5 37.5L17.5 30L11.25 33.75L5 37.5L11.25 41.25Z" />
+        <path id="rrr" d="M63.75 41.25L57.5 45L57.5 37.5L57.5 30L63.75 33.75L70 37.5L63.75 41.25Z" />
+        <path id="uuu" d="M41.25 11.25L45 17.5L37.5 17.5L30 17.5L33.75 11.25L37.5 5L41.25 11.25Z" />
+        <path id="ddd" d="M41.25 63.75L45 57.5L37.5 57.5L30 57.5L33.75 63.75L37.5 70L41.25 63.75Z" />
+    </defs>
+    <g>
+        <use xlink:href="#dpad0" opacity="1" fill="#E6E6E6" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+        <use xlink:href="#ccc" opacity="1" fill="#B2B2B2" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+        <use xlink:href="#uuu" opacity="1" fill="#B2B2B2" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+        <use xlink:href="#ddd" opacity="1" fill="#B2B2B2" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+        <use xlink:href="#lll" opacity="1" fill="#B2B2B2" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+        <use xlink:href="#rrr" opacity="1" fill="#B2B2B2" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+    </g>
+</svg>

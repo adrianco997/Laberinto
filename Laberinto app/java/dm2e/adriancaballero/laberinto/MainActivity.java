@@ -1,17 +1,33 @@
 package dm2e.adriancaballero.laberinto;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -29,91 +45,274 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        actualizarBD();
-//        RadioGroup rg = (RadioGroup) findViewById(R.id.ll1);for (int i = 1, mazeId = getResourceId("m" + i, "raw"); mazeId != 0; i++, mazeId = getResourceId("m" + i, "raw")) { Log.println(Log.ASSERT, TAG, "raw.m" + i + ": " + mazeId);RadioButton rb = new RadioButton(this);rb.setText(getResourceId("laberinto_" + i, "string"));rb.setTag(getResourceId("laberinto_" + i, "string"));rg.setOnClickListener(new View.OnClickListener() {public void onClick(View v) { Log.println(Log.ASSERT, TAG, "onClick raw.m" + v.getTag() + ": " + v.getId());RadioGroup rg = (RadioGroup) findViewById(R.id.ll1);for (int i = 0; i < rg.getChildCount(); i++) { if (rg.getChildAt(i) != v) ((RadioButton) rg.getChildAt(i)).setChecked(false); }if (v.getTag() != null) this.laberinto = (String) v.getTag();else this.laberinto = ""; }});rg.addView(rb); }
+//        actualizarBD((TextView) findViewById(R.id.tvGanardores));
+        makMazes(R.id.rgMazes, 4, LinearLayout.VERTICAL);
+        makeModes(R.id.rgModes, 2, LinearLayout.VERTICAL);
     }
-//    private static int ids = 1;
-//    public int findId() { View v = findViewById(ids);while (v != null) v = findViewById(++ids);return ids++; }
+
+//    public int findId() { View v = findViewById(ids);while (v != null) v = findViewById(++ids);return ids++; }private static int ids = 1;
+
+    public void makMazes(@IdRes int rgId, int modulo, int orientation) {
+        RadioGroup rg = findViewById(rgId);
+        rg.setLayoutParams(new RadioGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        rg.setOrientation(orientation);
+        rg.setGravity(Gravity.CENTER);
+        LinearLayout ll = null;
+        for (int i = 1; getResourceId("m" + i, "raw") != 0; i++) {
+            if ((i - 1) % modulo == 0) {
+                if (ll != null) {
+                    rg.addView(ll);
+                }
+                ll = new LinearLayout(this);
+                ll.setLayoutParams(new RadioGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+                ll.setOrientation((rg.getOrientation() != LinearLayout.VERTICAL) ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
+                ll.setGravity(Gravity.CENTER);
+            }
+            RadioButton rb = new RadioButton(this);
+            String txt = "m" + i;//getString((int) getResourceId("m" + i, "raw"));
+            rb.setText(txt);
+            rb.setTag(txt);
+
+//            android:layout_weight="50" android:checked="false" android:gravity="center"
+
+            rb.setLayoutParams(new RadioGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+            rb.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.i(TAG, "onClick Mazes." + v.getTag() + ": " + v.getId()
+                            + " : " + ((RadioButton) v).getText());
+                    RadioGroup rgMazes = (RadioGroup) v.getParent().getParent();//findViewById(R.id.rgMazes);
+                    for (int i = 0; i < rgMazes.getChildCount(); i++) {
+                        LinearLayout ll = (LinearLayout) rgMazes.getChildAt(i);
+                        for (int j = 0; j < ll.getChildCount(); j++) {
+                            if (ll.getChildAt(j) != v)
+                                ((RadioButton) ll.getChildAt(j)).setChecked(false);
+                        }
+                    }
+                    if (v.getTag() != null) laberinto = (String) v.getTag();
+                    else laberinto = "";
+                }
+            });
+            ll.addView(rb);
+        }
+        if (ll != null) {
+            rg.addView(ll);
+        }
+    }
+
+    public void makeModes(@IdRes int rgId, int modulo, int orientation) {
+        RadioGroup rg = findViewById(rgId);
+        rg.setLayoutParams(new RadioGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        rg.setOrientation(orientation);
+        rg.setGravity(Gravity.CENTER);
+        String[] modos = getResources().getStringArray(R.array.modos);
+        LinearLayout ll = null;
+        for (int i = 0; i < modos.length; i++) {
+            if (i % modulo == 0) {
+                if (ll != null) {
+                    rg.addView(ll);
+                }
+                ll = new LinearLayout(this);
+                ll.setLayoutParams(new RadioGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+                ll.setOrientation((rg.getOrientation() != LinearLayout.VERTICAL) ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
+                ll.setGravity(Gravity.CENTER);
+            }
+            RadioButton rb = new RadioButton(this);
+            rb.setText(modos[i]);
+            rb.setTag(modos[i]);
+            rb.setLayoutParams(new RadioGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+            rb.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.i(TAG, "onClick Modes." + v.getTag() + ": " + v.getId());
+                    RadioGroup rgModes = (RadioGroup) v.getParent().getParent();//findViewById(R.id.rgModes);
+                    for (int i = 0; i < rgModes.getChildCount(); i++) {
+//                        if (rgModes.getChildAt(i) != v) ((RadioButton) rgModes.getChildAt(i)).setChecked(false);
+                        LinearLayout ll = (LinearLayout) rgModes.getChildAt(i);
+                        for (int j = 0; j < ll.getChildCount(); j++) {
+                            if (ll.getChildAt(j) != v)
+                                ((RadioButton) ll.getChildAt(j)).setChecked(false);
+                        }
+                    }
+                    if (v.getTag() != null) modo = (String) v.getTag();
+                    else modo = "";
+                }
+            });
+            ll.addView(rb);
+        }
+        if (ll != null) {
+            rg.addView(ll);
+        }
+    }
 
     public void onPulsar(View v) {
         String nombre = ((EditText) findViewById(R.id.etNombre)).getText().toString().trim();
         if (nombre.equals("")) muestraMensaje(R.string.nombreInvalido);
         else if (this.laberinto.equals("")) muestraMensaje(R.string.laberintoInvalido);
-//        else if (modo.equals("")){ }muestraMensaje(R.string.modoInvalido); }
+//        else if (modo.equals("")){ muestraMensaje(R.string.modoInvalido); }
         else {
-
+            /*witch (R.string) {}*/
             if (modo.equals(getString(R.string.modo_texto))) {
-                Intent intent = new Intent(this, MazePlayerTextActivity.class);
-                intent.putExtra("nombre", nombre);
-                intent.putExtra("laberinto", this.laberinto);
-                startActivityForResult(intent, MAZE_PLAYER_TEXT_ACTIVITY_TAG);
-            }
-            else if (modo.equals(getString(R.string.modo_dibujo))) {
-                Intent intent = new Intent(this, MazePlayerDrawActivity.class);
-                intent.putExtra("nombre", nombre);
-                intent.putExtra("laberinto", this.laberinto);
-                startActivityForResult(intent, MAZE_PLAYER_DRAW_ACTIVITY_TAG);
-            }
-            else muestraMensaje(R.string.modoInvalido);
-
+                startIntent(nombre, MazePlayerTextActivity.class, MAZE_PLAYER_TEXT_ACTIVITY_TAG);
+            } else if (modo.equals(getString(R.string.modo_dibujo))) {
+                startIntent(nombre, MazePlayerDrawActivity.class, MAZE_PLAYER_DRAW_ACTIVITY_TAG);
+            } else muestraMensaje(R.string.modoInvalido);
         }
     }
-    /*// Inflate the menu; this adds items to the action bar if it is present.
-    @Override public boolean onCreateOptionsMenu(Menu menu) { getMenuInflater().inflate(R.menu.menu_main, menu);return true; }
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will automatically handle clicks on
-        // the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        // noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) { return true; }
-        return super.onOptionsItemSelected(item);
-    }*/
-    public void selectLaberinto(View v) {
-        if (v.getId() == R.id.laberinto1) this.laberinto = getString(R.string.laberinto_01);
-        else if (v.getId() == R.id.laberinto2) this.laberinto = getString(R.string.laberinto_02);
-        else if (v.getId() == R.id.laberinto3) this.laberinto = getString(R.string.laberinto_03);
-        else if (v.getId() == R.id.laberinto4) this.laberinto = getString(R.string.laberinto_04);
-        else this.laberinto = "";
+
+    public void startIntent(String nombre, Class clase, int activityTag) {
+        Intent intent = new Intent(this, clase);
+        intent.putExtra("nombre", nombre);
+        intent.putExtra("laberinto", this.laberinto);
+        startActivityForResult(intent, activityTag);
     }
 
-    public void selectModo(View v) {
-        if (v.getId() == R.id.modo1) this.modo = getString(R.string.modo_texto);
-        else if (v.getId() == R.id.modo2) this.modo = getString(R.string.modo_dibujo);
-        else this.modo = "";
+    /***********************************************************************************************/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        /*new Handler().post(new Runnable() {@Override public void run() { final View menuItemView = findViewById(R.id.popup);openPopup(menuItemView); }}); //*/
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings: {
+                return true;
+            }
+            case R.id.menu_ranking: {
+                final View v = findViewById(R.id.menu_settings);/*item.getActionView()*/
+                openPopup(v, R.id.menu_ranking);
+                return true;
+            }
+            case R.id.menu_help: {
+                final View v = findViewById(R.id.menu_settings);/*item.getActionView()*/
+                openPopup(v, R.id.menu_help);
+                return true;
+            }
+            case R.id.menu_info: {
+                final View v = findViewById(R.id.menu_settings);/*item.getActionView()*/
+                openPopup(v, R.id.menu_info);
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
 
-    protected void actualizarBD() {
-        String txt = "Rankings:\n";
+    public void openPopup(View view) {
+        openPopup(view, view.getId());
+    }
+
+    public void openPopup(View view, /*@IdRes*/ int idPopup) {
+        if (view == null) {
+            muestraMensaje("Error al abrir poup");
+        }
+        int width = LayoutParams.WRAP_CONTENT, height = LayoutParams.WRAP_CONTENT;
+        LayoutInflater lInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.popup_window, null, false), 100, 100, true);
+
+        View popupView = lInflater.inflate(R.layout.popup_window, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        TextView tv = (TextView) popupView.findViewById(R.id.tv_popup);
+        View accept = popupView.findViewById(R.id.accept_popup);
+        View cancel = popupView.findViewById(R.id.cancel_popup);
+
+        switch (idPopup) {
+            case R.id.menu_settings: {
+                break;
+            }
+            case R.id.popup_ranking:
+            case R.id.menu_ranking: {
+                actualizarBD(tv);
+                tv.setGravity(Gravity.NO_GRAVITY);
+                accept.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                break;
+            }
+            case R.id.popup_help:
+            case R.id.menu_help: {
+                tv.setText(getSpannedText(getString(R.string.popup_help)));
+                tv.setGravity(Gravity.NO_GRAVITY);
+                accept.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                break;
+            }
+            case R.id.popup_info:
+            case R.id.menu_info: {
+                tv.setText(getSpannedText(getString(R.string.popup_informacion)));
+                tv.setGravity(Gravity.CENTER);
+//                tv.setText(R.string.informacion);
+                accept.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                break;
+            }
+
+        }
+//        if(accept.getVisibility() == View.VISIBLE) {accept.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { }});}
+        if (cancel.getVisibility() == View.VISIBLE) {
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupWindow.dismiss();
+                }
+            });
+        } else {
+            popupView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    popupWindow.dismiss();
+                    return true;
+                }
+            });
+        }
+    }
+
+    private Spanned getSpannedText(String text) {
+        if (VERSION.SDK_INT < VERSION_CODES.N) return Html.fromHtml(text);
+        else return Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT);
+    }//public static CharSequence getText(Context context, int id, Object... args) { for (int i = 0; i < args.length; ++i) args[i] = (args[i] instanceof String) ? TextUtils.htmlEncode((String) args[i]) : args[i];return Html.fromHtml(String.format(Html.toHtml(new SpannedString(context.getText(id))), args)); }
+
+    /***********************************************************************************************/
+//    public void selectLaberinto(View v) { Log.i(TAG, "selectLaberinto raw.m" + v.getTag() + ": " + v.getId());if (v.getId() == R.id.laberinto1) this.laberinto = getString(R.string.laberinto_1);else if (v.getId() == R.id.laberinto2) this.laberinto = getString(R.string.laberinto_2);else if (v.getId() == R.id.laberinto3) this.laberinto = getString(R.string.laberinto_3);else if (v.getId() == R.id.laberinto4) this.laberinto = getString(R.string.laberinto_4);else this.laberinto = ""; }
+//    public void selectModo(View v) { Log.i(TAG, "onClick StringArray.modo." + v.getTag() + ": " + v.getId());if (v.getId() == R.id.modo1) this.modo = getString(R.string.modo_texto);else if (v.getId() == R.id.modo2) this.modo = getString(R.string.modo_dibujo);else this.modo = ""; }
+    protected void actualizarBD(TextView tv) {
         try {
             SQLiteHelper_Ranking db = SQLiteHelper_Ranking.getInstance(this);
             List<Ranking> ranking = db.getAllRankings();
+            String txt = "";
             for (Ranking r : ranking) {
-                txt = String.format("%s%s\n", txt, r.toString(this));
-
-//                String text = getString(R.string.welcome_messages, username, mailCount);
-//                Spanned styledText = Html.fromHtml(text, FROM_HTML_MODE_LEGACY);
+                txt = String.format("%s%s<br>", txt, r.toString(this));
             }
-            ((TextView) findViewById(R.id.tvGanardores)).setText(txt);
+            tv.setText(getSpannedText(getString(R.string.rankings, txt)));
         } catch (Exception e) {
             muestraMensaje(R.string.errorGanardores);
+            e.printStackTrace();
         }
     }
 
+    protected void muestraMensaje(String txt) {
+        Toast.makeText(this, txt, Toast.LENGTH_SHORT).show();
+    }
 
-    //    protected void muestraMensaje(String txt, int duration) { Toast.makeText(this, txt, duration).show(); }
     protected void muestraMensaje(int id) {
         Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
     }
-    //public int getResourceId(String name, String defType) { return getResources().getIdentifier(name, defType, getPackageName()); }
+
+    public int getResourceId(String name, String defType) {
+        return getResources().getIdentifier(name, defType, getPackageName());
+    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);/*String respuesta = data.getStringExtra("respuesta");*//*if(resultCode==RESULT_FIRST_USER){}else if(resultCode==RESULT_OK){}else if(resultCode==RESULT_CANCELED){}*/
-////        ((RadioButton) findViewById(R.id.laberinto1)).setChecked(false);((RadioButton) findViewById(R.id.laberinto2)).setChecked(false);((RadioButton) findViewById(R.id.laberinto3)).setChecked(false);((RadioButton) findViewById(R.id.laberinto4)).setChecked(false);
-//        { RadioGroup rg1 = findViewById(R.id.rg1);int rbId1 = rg1.getCheckedRadioButtonId();RadioButton rb1 = findViewById(rbId1);rb1.setChecked(false);this.laberinto = ""; }
-//        { RadioGroup rg2 = findViewById(R.id.rg2);int rbId2 = rg2.getCheckedRadioButtonId();RadioButton rb2 = findViewById(rbId2);rb2.setChecked(false);this.modo = ""; }
         onPause();
-        actualizarBD();
+//        actualizarBD((TextView) findViewById(R.id.tvGanardores));
     }
 
     @Override

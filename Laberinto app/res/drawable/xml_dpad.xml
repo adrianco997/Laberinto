@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="75dp"
+    android:height="75dp"
+    android:viewportWidth="75"
+    android:viewportHeight="75">
+    <!--    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M550.01 292.2L300.01 50L50 292.98L208.49 292.73L208.49 550L391.93 549.72L391.93 292.45L550.01 292.2Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>-->
+    <!--    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M50 307.78L299.99 550L550.01 307.03L391.52 307.27L391.53 50L208.1 50.27L208.08 307.54L50 307.78Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>-->
+    <!--    <group-->
+    <!--        android:scaleX="0.33"-->
+    <!--        android:scaleY="0.33">-->
+    <!--        <path-->
+    <!--            android:fillColor="@color/arrows_color"-->
+    <!--            android:pathData="M292.22 50L50 299.99L292.97 550.01L292.73 391.52L550 391.53L549.73 208.09L292.46 208.08L292.22 50Z"-->
+    <!--            android:strokeWidth="2"-->
+    <!--            android:strokeColor="#000000" />-->
+    <!--    </group>-->
+
+    <path
+        android:fillColor="#E6E6E6"
+        android:pathData="M25 25L0 25L0 50L25 50L25 75L50 75L50 50L75 50L74.99 25L50 25L50 0L25 0L25 25Z"
+        android:strokeWidth="1"
+        android:strokeColor="#000000"
+        android:strokeLineCap="square"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#B2B2B2"  android:strokeWidth="1"
+        android:strokeColor="#000000"
+        android:pathData="M45 37.5C45 41.64 41.64 45 37.5 45C33.36 45 30 41.64 30 37.5C30 33.36 33.36 30 37.5 30C41.64 30 45 33.36 45 37.5Z" />
+
+    <path
+        android:fillColor="#B2B2B2" android:strokeWidth="1"
+        android:strokeColor="#000000"
+        android:pathData="M41.25 11.25L45 17.5L37.5 17.5L30 17.5L33.75 11.25L37.5 5L41.25 11.25Z" />
+    <path
+        android:fillColor="#B2B2B2" android:strokeWidth="1"
+        android:strokeColor="#000000"
+        android:pathData="M41.25 63.75L45 57.5L37.5 57.5L30 57.5L33.75 63.75L37.5 70L41.25 63.75Z" />
+    <path
+        android:fillColor="#B2B2B2" android:strokeWidth="1"
+        android:strokeColor="#000000"
+        android:pathData="M11.25 41.25L17.5 45L17.5 37.5L17.5 30L11.25 33.75L5 37.5L11.25 41.25Z" />
+    <path
+        android:fillColor="#B2B2B2" android:strokeWidth="1"
+        android:strokeColor="#000000"
+        android:pathData="M63.75 41.25L57.5 45L57.5 37.5L57.5 30L63.75 33.75L70 37.5L63.75 41.25Z" />
+
+    <!--    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M307.81 550L550.01 300L307.03 50L307.28 208.49L50 208.49L50.29 391.93L307.56 391.93L307.81 550Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>-->
+</vector>

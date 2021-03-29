@@ -1,36 +1,81 @@
 <resources>
     <string name="app_name">Laberinto</string>
     <!--<string name="app_id">dm2e.adriancaballero.laberinto</string>-->
-    <!-- -->
-    <string name="action_settings">Settings</string>
-    <string name="introduceNombre">Introduce tu nombre</string>
+    <!---->
+    <string name="comoTeLlamas">Introduce tu nombre</string>
+    <string name="introduceNombre">" "</string>
     <string name="empezarLaberinto">Empezar laberinto</string>
+    <string name="niveles">Niveles:</string>
+    <string name="modos_de_juego">Modos de juego:</string>
     <string name="nombreInvalido">Nombre inválido</string>
-    <string name="laberintoInvalido">Selecciona un laberinto</string>
-    <string name="modoInvalido">Selecciona un laberinto</string>
+    <string name="laberintoInvalido">Selecciona un nivel</string>
+    <string name="modoInvalido">Selecciona un modo de juego</string>
+    <string name="errorGanardores">Error al mostrar ganadores</string>
+    <string name="rankingTxt">&lt;b>%3$3d&lt;/b> movs, laberinto: &lt;b>%2$s&lt;/b>. Jugador: &lt;b>%1$s&lt;/b>.</string>
+    <!--<string name="rankingTxt"><b>%3$3d movs</b>, laberinto: %2$s. Jugador: %1$s.</string>-->
+    <string name="rankings">&lt;b>Rankings&lt;/b>:&lt;br>%1$s</string>
+    <!--<string name="rankings"><b>Rankings</b>:\n%1$s</string>-->
+    <string-array name="modos">
+        <item>@string/modo_texto</item>
+        <item>@string/modo_dibujo</item>
+    </string-array>
+    <string name="modo_texto">Texto</string>
+    <string name="modo_dibujo">Dibujo</string>
+    <!---->
+
     <!--<string name="segundaVentana">Esta es la segunda ventana</string>-->
     <string name="ordenaLaberinto">Ordena el Laberinto %1$s</string>
-    <string name="comoTeLlamas">¿Cómo te llamas?</string>
-    <string name="escribeNombre">Escribe tu nombre</string>
-    <string name="errorGanardores">Error al mostrar ganadores</string>
     <string name="movimientos">Movimientos: %1$d</string>
-
-    <string name="rankingTxt">%3$3d movs, laberinto: %2$s. Jugador: %1$s.</string>
     <string name="ganado">Has ganado en %1$d movimientos</string>
     <string name="encontrada">SALIDA ENCONTRADA.</string>
     <string name="noEncontrada">SALIDA NO ENCONTRADA.</string>
+    <string name="dpad" translatable="false">dpad</string>
     <!---->
-    <string-array name="modos"><item>@string/modo_texto</item><item>@string/modo_dibujo</item></string-array><string name="modo_texto">Texto</string><string name="modo_dibujo">Dibujo</string>
+    <string name="action_settings" translatable="false">...</string>
+    <string name="restart" translatable="false">Restart</string>
+    <string name="help" translatable="false">Help</string>
+    <string name="ranking">Rankings</string>
+    <string name="informacion">Informacion</string>
+    <string name="popup_help">
+&lt;b>Ayuda&lt;/b>&lt;br>
+        Introduce tu nombre, elige el nivel a jugar y el modo de juego.&lt;br>&lt;br>
+        &lt;br>
+        &lt;b>Objetivo:&lt;/b> &lt;br>
+        Resolver el laverinto en el menor numero de movimientos posibles.
+        &lt;br>&lt;br>
+        Ademas puedes cambiar el numero de casillas alrededor del usuario visibles y reiniciar el laberinto si te pierdes&lt;br>&lt;br>
+    </string>
+    <string name="popup_informacion" translatable="false">&lt;b>APLICACIÓN DE LABERINTO&lt;/b>&lt;br>Proyecto fin de curso &lt;br>&lt;br>Adrían Caballero Orasio&lt;br>Carlos del Valle Pelaez&lt;br>&lt;br>IES Clara del Rey&lt;br>2021</string>
     <!---->
-    <string-array name="laberintos"><item>@string/laberinto_01</item><item>@string/laberinto_02</item><item>@string/laberinto_03</item><item>@string/laberinto_04</item></string-array><string name="laberinto_01">m1</string><string name="laberinto_02">m2</string><string name="laberinto_03">m3</string><string name="laberinto_04">m4</string>
+    <string name="x_size" translatable="false">X: %1$d</string>
+    <string name="y_size" translatable="false">Y: %1$d</string>
     <!---->
-    <string-array name="laberintos_text"><item>@string/laberinto_text_01</item><item>@string/laberinto_text_02</item><item>@string/laberinto_text_03</item><item>@string/laberinto_text_04</item></string-array><string name="laberinto_text_01" translatable="false">++++++\n+i" "" "" "+\n++" "+++\n+" "" "" "" "+\n+" "" "" "" "+\n+o++" "+\n++++++</string><string name="laberinto_text_02" translatable="false">++++++\n+i" "" "" "+\n++++" "+\n+" "" "" "" "+\n+o++" "+\n++++++\n</string><string name="laberinto_text_04" translatable="false">++++++\n+i" "" "" "+\n++++++\n+" "" "" "" "+\n+o++" "+\n++++++\n</string><string name="laberinto_text_03" translatable="false">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n+i" "" "+" "" "" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "+" "+\n+" "+++" "+" "+++" "+++" "+++" "+++++++++++" "+++" "+++" "+" "+++" "+++++++++" "+" "+++++" "+++++" "+" "+" "+" "+" "+" "+\n+" "" "" "" "" "+" "+" "" "" "" "" "+" "+" "" "" "+" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "+" "+" "+" "" "" "+" "" "" "" "" "+" "" "" "+" "+" "" "" "" "" "+" "" "" "+" "+" "+" "" "" "+" "" "" "+\n+++++++" "+" "+++++" "+" "+++" "+" "+++++" "+++++++++" "+" "+" "+++" "+++" "+++" "+++" "+++++" "+" "+" "+" "+++++++" "+\n+" "" "" "" "" "" "" "+" "+" "+" "" "" "+" "" "" "+" "+" "+" "" "" "+" "+" "" "" "" "" "" "" "" "" "+" "+" "" "" "+" "+" "+" "" "" "+" "" "" "+" "" "" "" "" "" "" "+" "+" "" "" "+" "+" "" "" "" "" "+\n+" "+++++++" "+" "+" "+++++" "+" "+" "+++" "+" "+" "+++++++" "+" "+++" "+" "+" "+++" "+++" "+++++++++" "+++++" "+" "+++++\n+" "" "" "" "" "" "" "+" "+" "+" "" "" "" "" "" "" "+" "+" "" "" "+" "" "" "" "" "+" "+" "" "" "" "" "+" "+" "+" "" "" "" "" "" "" "+" "+" "+" "" "" "+" "" "" "+" "" "" "+" "" "" "" "" "+" "+" "" "" "+\n+" "+++++" "+" "+" "+++++++++" "+++" "+++++++" "+" "+++++" "+" "+++++++++" "+" "+++" "+" "+" "+" "+++" "+" "+" "+" "+" "+" "+\n+" "" "" "" "" "+" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "+" "+" "" "" "+" "+" "" "" "" "" "+" "" "" "+" "+" "" "" "+" "" "" "+" "+" "" "" "+" "+" "+" "+" "+" "+" "+\n+++++" "+" "+" "+" "+++" "+++" "+++" "+++" "+" "+" "+" "+" "+++" "+" "+" "+" "+++" "+" "+" "+" "+++++++" "+++" "+" "+" "+++" "+++" "+\n+" "+" "" "" "+" "" "" "+" "+" "+" "+" "" "" "" "" "" "" "+" "" "" "+" "+" "+" "+" "" "" "" "" "+" "+" "+" "" "" "+" "+" "" "" "+" "+" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "+" "" "" "" "" "+\n+" "+" "+++++++" "+" "+" "+++++++++" "+++" "+" "+" "+++++" "+" "+++++" "+" "+++++" "+" "+" "+" "+++" "+++" "+++" "+++++" "+\n+" "+" "+" "" "" "" "" "" "" "" "" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "+" "+" "" "" "" "" "+" "+" "" "" "+" "+" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "+" "" "" "" "" "" "" "+\n+" "+" "+" "+++++++++" "+" "+++++++" "+++++++" "+" "+++" "+++++" "+" "+++" "+" "+" "+++++++++" "+" "+++" "+++++++++\n+" "+" "+" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "" "" "" "" "+" "" "" "" "" "+" "+" "" "" "" "" "" "" "+" "" "" "+" "" "" "+" "+" "+" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "+" "+\n+" "+" "+++++" "+" "+" "+" "+" "+++++++++" "+++" "+++++++++" "+" "+++" "+++" "+" "+++" "+++" "+++++" "+++++" "+++" "+" "+\n+" "" "" "+" "" "" "" "" "+" "+" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "+" "" "" "" "" "" "" "+" "+" "" "" "+" "" "" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "" "" "+" "" "" "+" "+" "+\n+" "+++" "+++++" "+" "+" "+++++++++" "+++" "+" "+" "+++++" "+++++" "+++" "+" "+++++++++++" "+" "+++++" "+++" "+" "+" "+\n+" "" "" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "" "" "" "" "" "" "" "" "+" "" "o+\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</string>
+    <string name="test_pop_up" translatable="false">Test Pop-Up</string>
+    <string name="accept" translatable="false">Accept</string>
+    <string name="cancel" formatted="false" translatable="false">Cancel</string>
+    <!---->
+    <!--
+    <string-array name="laberintos"><item>@string/laberinto_1</item><item>@string/laberinto_2</item><item>@string/laberinto_3</item><item>@string/laberinto_4</item></string-array>
+    <string name="laberinto_1" translatable="false">m1</string><string name="laberinto_2" translatable="false">m2</string><string name="laberinto_3" translatable="false">m3</string><string name="laberinto_4" translatable="true">m4</string>
+    -->
+    <!---->
+
+    <string-array name="laberintos_text"><item>@string/laberinto_text_1</item><item>@string/laberinto_text_2</item><item>@string/laberinto_text_3</item><item>@string/laberinto_text_4</item></string-array>
+    <string name="laberinto_text_1" translatable="false">++++++\n+i" "" "" "+\n++" "+++\n+" "" "" "" "+\n+" "" "" "" "+\n+o++" "+\n++++++</string>
+    <string name="laberinto_text_2" translatable="false">++++++\n+i" "" "" "+\n++++" "+\n+" "" "" "" "+\n+o++" "+\n++++++</string>
+    <string name="laberinto_text_4" translatable="false">++++++\n+i" "" "" "+\n++++++\n+" "" "" "" "+\n+o++" "+\n++++++</string>
+    <string name="laberinto_text_3" translatable="false">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n+i" "" "+" "" "" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "+" "+\n+" "+++" "+" "+++" "+++" "+++" "+++++++++++" "+++" "+++" "+" "+++" "+++++++++" "+" "+++++" "+++++" "+" "+" "+" "+" "+" "+\n+" "" "" "" "" "+" "+" "" "" "" "" "+" "+" "" "" "+" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "+" "+" "+" "" "" "+" "" "" "" "" "+" "" "" "+" "+" "" "" "" "" "+" "" "" "+" "+" "+" "" "" "+" "" "" "+\n+++++++" "+" "+++++" "+" "+++" "+" "+++++" "+++++++++" "+" "+" "+++" "+++" "+++" "+++" "+++++" "+" "+" "+" "+++++++" "+\n+" "" "" "" "" "" "" "+" "+" "+" "" "" "+" "" "" "+" "+" "+" "" "" "+" "+" "" "" "" "" "" "" "" "" "+" "+" "" "" "+" "+" "+" "" "" "+" "" "" "+" "" "" "" "" "" "" "+" "+" "" "" "+" "+" "" "" "" "" "+\n+" "+++++++" "+" "+" "+++++" "+" "+" "+++" "+" "+" "+++++++" "+" "+++" "+" "+" "+++" "+++" "+++++++++" "+++++" "+" "+++++\n+" "" "" "" "" "" "" "+" "+" "+" "" "" "" "" "" "" "+" "+" "" "" "+" "" "" "" "" "+" "+" "" "" "" "" "+" "+" "+" "" "" "" "" "" "" "+" "+" "+" "" "" "+" "" "" "+" "" "" "+" "" "" "" "" "+" "+" "" "" "+\n+" "+++++" "+" "+" "+++++++++" "+++" "+++++++" "+" "+++++" "+" "+++++++++" "+" "+++" "+" "+" "+" "+++" "+" "+" "+" "+" "+" "+\n+" "" "" "" "" "+" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "+" "+" "" "" "+" "+" "" "" "" "" "+" "" "" "+" "+" "" "" "+" "" "" "+" "+" "" "" "+" "+" "+" "+" "+" "+" "+\n+++++" "+" "+" "+" "+++" "+++" "+++" "+++" "+" "+" "+" "+" "+++" "+" "+" "+" "+++" "+" "+" "+" "+++++++" "+++" "+" "+" "+++" "+++" "+\n+" "+" "" "" "+" "" "" "+" "+" "+" "+" "" "" "" "" "" "" "+" "" "" "+" "+" "+" "+" "" "" "" "" "+" "+" "+" "" "" "+" "+" "" "" "+" "+" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "+" "" "" "" "" "+\n+" "+" "+++++++" "+" "+" "+++++++++" "+++" "+" "+" "+++++" "+" "+++++" "+" "+++++" "+" "+" "+" "+++" "+++" "+++" "+++++" "+\n+" "+" "+" "" "" "" "" "" "" "" "" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "+" "+" "" "" "" "" "+" "+" "" "" "+" "+" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "+" "" "" "" "" "" "" "+\n+" "+" "+" "+++++++++" "+" "+++++++" "+++++++" "+" "+++" "+++++" "+" "+++" "+" "+" "+++++++++" "+" "+++" "+++++++++\n+" "+" "+" "" "" "+" "" "" "+" "" "" "+" "+" "" "" "" "" "" "" "+" "" "" "" "" "+" "+" "" "" "" "" "" "" "+" "" "" "+" "" "" "+" "+" "+" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "+" "+\n+" "+" "+++++" "+" "+" "+" "+" "+++++++++" "+++" "+++++++++" "+" "+++" "+++" "+" "+++" "+++" "+++++" "+++++" "+++" "+" "+\n+" "" "" "+" "" "" "" "" "+" "+" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "+" "" "" "" "" "" "" "+" "+" "" "" "+" "" "" "+" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "" "" "+" "" "" "+" "+" "+\n+" "+++" "+++++" "+" "+" "+++++++++" "+++" "+" "+" "+++++" "+++++" "+++" "+" "+++++++++++" "+" "+++++" "+++" "+" "+" "+\n+" "" "" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "+" "" "" "" "" "+" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "" "" "+" "" "" "" "" "" "" "" "" "+" "" "" "+" "" "" "" "" "" "" "" "" "" "" "+" "" "o+\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</string>
+    <!-- -->
+
     <!---->
     <string-array name="fileChars"><!--String[] = res.getStringArray(R.array.);--><item>@string/ERRORCHAR</item><item>@string/INPUT</item><item>@string/OUTPUT</item><item>@string/BARRIER</item><item>@string/SPACE</item></string-array><string name="ERRORCHAR" translatable="false">E</string><string name="INPUT" translatable="false">i</string><string name="OUTPUT" translatable="false">o</string><string name="BARRIER" translatable="false">+</string><string name="SPACE" translatable="false">" "</string><!--  &#160;  &nbsp; \u00A0 -->
     <!---->
     <string-array name="movements"><item>@string/RIGHT</item><item>@string/UP</item><item>@string/LEFT</item><item>@string/DOWN</item><item>@string/VISITED</item><item>@string/ACTUAL</item></string-array><string name="RIGHT" translatable="false">&lt;</string><string name="UP" translatable="false">^</string><string name="LEFT" translatable="false">&gt;</string><string name="DOWN" translatable="false">v</string><string name="VISITED" translatable="false">x</string><string name="ACTUAL" translatable="false">P</string>
-    <string name="dpad">dpad</string>
+    <!---->
 
     <!---->
+
+
+
 <!--<plurals name="name">&lt;!&ndash;String songsFound = getResources().getQuantityString(R.plurals.name, numero, numero);&ndash;&gt;<item quantity="zero">text_string</item><item quantity="one">Znaleziono %d piosenkę.</item><item quantity="two">text_string</item><item quantity="few">Znaleziono %d piosenki.</item><item quantity="many">text_string</item><item quantity="other">Znaleziono %d piosenek.</item></plurals>-->
 </resources>

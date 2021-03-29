@@ -6,46 +6,22 @@
     android:layout_weight="0"
     android:orientation="horizontal">
 
+<!--    <ImageView android:layout_width="150dp" android:layout_height="150dp" android:background="@null" android:contentDescription="@string/dpad" android:src="@drawable/dpad" />-->
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@null"
-        android:src="@drawable/dpad"
-        android:contentDescription="@string/dpad" />
+        android:contentDescription="@string/dpad"
+        android:src="@drawable/xml_dpad" />
 
-    <Button
-        android:id="@+id/up"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="-100dp"
-        android:layout_marginTop="0dp"
-        android:background="@null"
-        android:layout_marginStart="-100dp" />
+<!--    <Button android:id="@+id/up" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="-100dp" android:layout_marginLeft="-100dp" android:layout_marginTop="0dp" android:background="@drawable/xml_up" />-->
+<!--    <Button android:id="@+id/down" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="-50dp" android:layout_marginLeft="-50dp" android:layout_marginTop="100dp" android:background="@drawable/xml_donw" />-->
+<!--    <Button android:id="@+id/left" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="-100dp" android:layout_marginLeft="-100dp" android:layout_marginTop="50dp" android:background="@drawable/xml_left" />-->
+<!--    <Button android:id="@+id/right" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="50dp" android:layout_marginLeft="50dp" android:layout_marginTop="50dp" android:background="@drawable/xml_right" />-->
+    <Button android:id="@+id/up" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="-100dp" android:layout_marginLeft="-100dp" android:layout_marginTop="0dp" android:background="@null" />
+    <Button android:id="@+id/down" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="-50dp" android:layout_marginLeft="-50dp" android:layout_marginTop="100dp" android:background="@null" />
+    <Button android:id="@+id/left" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="-100dp" android:layout_marginLeft="-100dp" android:layout_marginTop="50dp" android:background="@null" />
+    <Button android:id="@+id/right" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginStart="50dp" android:layout_marginLeft="50dp" android:layout_marginTop="50dp" android:background="@null" />
 
-    <Button
-        android:id="@+id/down"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="-50dp"
-        android:layout_marginTop="100dp"
-        android:background="@null"
-        android:layout_marginStart="-50dp" />
-
-    <Button
-        android:id="@+id/right"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="50dp"
-        android:background="@null"
-        android:layout_marginStart="0dp" />
-
-    <Button
-        android:id="@+id/left"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="-150dp"
-        android:layout_marginTop="50dp"
-        android:background="@null"
-        android:layout_marginStart="-150dp" />
 </LinearLayout>

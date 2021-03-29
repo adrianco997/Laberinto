@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
+<svg version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 600 600"
+    width="600"
+    height="600">
+    <defs>
+        <path
+            d="M550.01 292.2L300.01 50L50 292.98L208.49 292.73L208.49 550L391.93 549.72L391.93 292.45L550.01 292.2Z"
+            id="path_up"></path>
+        <path
+            d="M50 307.78L299.99 550L550.01 307.03L391.52 307.27L391.53 50L208.1 50.27L208.08 307.54L50 307.78Z"
+            id="path_donw"></path>
+        <path
+            d="M292.22 50L50 299.99L292.97 550.01L292.73 391.52L550 391.53L549.73 208.09L292.46 208.08L292.22 50Z"
+            id="path_left"></path>
+        <path
+            d="M307.81 550L550.01 300L307.03 50L307.28 208.49L50 208.49L50.29 391.93L307.56 391.93L307.81 550Z"
+            id="path_right"></path>
+    </defs>
+    <g>
+        <use xlink:href="#path_up" opacity="1" fill="#58f17b" fill-opacity="1" stroke="#000000" stroke-width="2" stroke-opacity="1" />
+        <use xlink:href="#path_donw" opacity="1" fill="#58f17b" fill-opacity="1" stroke="#000000" stroke-width="2" stroke-opacity="1" />
+        <use xlink:href="#path_left" opacity="1" fill="#58f17b" fill-opacity="1" stroke="#000000" stroke-width="2" stroke-opacity="1" />
+        <use xlink:href="#path_right" opacity="1" fill="#58f17b" fill-opacity="1" stroke="#000000" stroke-width="2" stroke-opacity="1" />
+
+    </g>
+</svg>

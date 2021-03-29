@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
+<svg version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 600 600"
+    width="600"
+    height="600">
+    <defs>
+        <path
+            d="M307.81 550L550.01 300L307.03 50L307.28 208.49L50 208.49L50.29 391.93L307.56 391.93L307.81 550Z"
+            id="path"></path>
+    </defs>
+    <g>
+        <use
+            xlink:href="#path"
+            opacity="1"
+            fill="#58f17b"
+            fill-opacity="1"
+            stroke="#000000"
+            stroke-width="2"
+            stroke-opacity="1" />
+    </g>
+</svg>

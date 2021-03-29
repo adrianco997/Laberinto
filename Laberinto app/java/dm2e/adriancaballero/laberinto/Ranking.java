@@ -1,8 +1,6 @@
 package dm2e.adriancaballero.laberinto;
 
 import android.content.Context;
-import android.text.Html;
-import android.text.Spanned;
 
 /**
  * @author Adrian Caballeo Orasio
@@ -30,5 +28,6 @@ public class Ranking {
     }
 
     public String toString(Context cont) { return cont.getString(R.string.rankingTxt, this.nombre, this.laberinto, this.puntuacion); }
+
 //    public String toString2(Context cont) { return String.format(cont.getResources().getString(R.string.rankingTxt), this.nombre, this.laberinto, this.puntuacion); }
 }

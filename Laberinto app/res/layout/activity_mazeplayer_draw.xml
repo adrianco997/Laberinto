@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="10dp"
@@ -13,13 +12,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MazePlayerDrawActivity">
-
-<!--&lt;!&ndash;<include layout="@menu/menu_main" android:layout_width="125dp" android:layout_height="40dp" />&ndash;&gt;-->
-
+    <!--&lt;!&ndash;<include layout="@menu/menu_main" android:layout_width="125dp" android:layout_height="40dp" />&ndash;&gt;-->
     <TextView android:id="@+id/tv1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="5" android:text="@string/ordenaLaberinto" android:textSize="16sp" />
-    <TextView android:id="@+id/tvContador" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/movimientos" />
 
+    <TextView
+        android:id="@+id/tvContador"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/movimientos" />
 
+    <LinearLayout android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="10dp" android:layout_marginBottom="10dp" android:background="#000000" />
     <include layout="@layout/maze_draw_view" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="10dp" android:layout_marginBottom="10dp" android:background="#000000" />
     <include layout="@layout/dpad_view" />
 </LinearLayout>

@@ -22,9 +22,8 @@ import androidx.annotation.RawRes;
  */
 public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
     private final String TAG = getClass().getName();
+    private int iniWidth, iniHeight, width, height, cellsX = 5, cellsY = 5;
     private Point actual = null, input = null, output = null;
-    private int width, height, cellsX = 5, cellsY = 5;
-    private float xx, yy, indentX, indentY;
     private boolean hasGanado = false;
     private Bitmap[] bitmaps;
     private Maze maze;
@@ -42,39 +41,71 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
         };
     }
 
-//    public void setCells(int cx, int cy) { if (cx >= 5 && cx <= 15)this.cellsX = cx;else setCells(cx - 15, cy);if (cy >= 5 && cy <= 15) this.cellsY = cy;else setCells(cx, cy - 15); }
-
-    public void setIndentXY() {
-        this.indentX = (float) this.width / this.cellsX / 2;
-        this.indentY = (float) this.height / this.cellsY / 2;
-    }
-
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int wMode = MeasureSpec.getMode(widthMeasureSpec), hMode = MeasureSpec.getMode(heightMeasureSpec);
-        if (wMode == MeasureSpec.EXACTLY) width = MeasureSpec.getSize(widthMeasureSpec);
-        else if (wMode == MeasureSpec.AT_MOST) width = 150;
-        if (hMode == MeasureSpec.EXACTLY) height = MeasureSpec.getSize(heightMeasureSpec);
-        else if (hMode == MeasureSpec.AT_MOST) height = 150;
-        setIndentXY();
+        if (wMode == MeasureSpec.EXACTLY) this.width = MeasureSpec.getSize(widthMeasureSpec);
+        else if (wMode == MeasureSpec.AT_MOST) this.width = 150;
+        if (hMode == MeasureSpec.EXACTLY) this.height = MeasureSpec.getSize(heightMeasureSpec);
+        else if (hMode == MeasureSpec.AT_MOST) this.height = 150;
+        this.iniWidth = width;
+        this.iniHeight = height;
 //        Log.i(TAG + ".onMeasure", String.format("(y, x): [%s][%s]\n", yy, xx));Log.i(TAG + ".onMeasure", String.format("(h, w): [%s][%s]\n", height, width));Log.i(TAG + ".onMeasure", String.format("(iY, iX): [%s][%s]\n\n", indentY, indentX));
         setMeasuredDimension(width, height);
     }
 
+    public int addCellsX() {
+        if (cellsX < 10) {
+            this.cellsX += 1;
+        } else {
+            this.cellsX = 3;
+        }
+        invalidate();
+        return this.cellsX;
+    }
+
+    public int addCellsY() {
+        if (cellsY < 10) {
+            this.cellsY += 1;
+        } else {
+            this.cellsY = 3;
+        }
+        invalidate();
+        return this.cellsY;
+    }
+
+    public int getCellsX() {
+        return this.cellsX;
+    }
+
+    public int getCellsY() {
+        return this.cellsY;
+    }
+
+    public void restart() {
+        Maze.map_destroy(this.maze);
+        this.maze = null;
+        this.input = null;
+        this.output = null;
+        this.actual = null;
+        this.width = this.iniWidth;
+        this.height = this.iniHeight;
+        this.hasGanado = false;
+    }
 
     public boolean play(@RawRes int idFile) {
+        restart();
         this.maze = new Maze(getContext());
-        if (!this.maze.read(idFile)) {
+        if (!maze.read(idFile)) {
             Log.e(TAG, "Error en play.read");
             return false;
         }
         if (checkFile(idFile) != -1) {
-            muestraMensaje(getResources().getString(R.string.encontrada));
-            if (this.input == null) this.input = maze.getInput();
-            if (this.output == null) this.output = maze.getOutput();
-            if (this.actual == null) this.actual = this.input;
-            Log.i(TAG, "input: " + this.input + ", output: " + this.output + ", actual: " + this.actual);
-            //this.mazeText.setText(this.maze.toString());
+//            muestraMensaje(getResources().getString(R.string.encontrada));
+            if (input == null) this.input = this.maze.getInput();
+            if (output == null) this.output = this.maze.getOutput();
+            if (actual == null) this.actual = this.input;
+            Log.i(TAG, "input: " + input + ", output: " + output + ", actual: " + actual);
             return true;
         } else {
             muestraMensaje(getResources().getString(R.string.noEncontrada));
@@ -91,10 +122,11 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
             muestraMensaje("Error en recursiveSolver.");
             return -1;
         }
-//		System.out.println("Mapa:\n" + mazeAux.toString()+"\nInput:  " + mazeAux.getInput()+"\nOutput: " + mazeAux.getOutput());
+//		Log.i(TAG,("Mapa:\n" + mazeAux.toString()+"\nInput:  " + mazeAux.getInput()+"\nOutput: " + mazeAux.getOutput());
         pathlength = mazeAux.deepSearchStack(mazeAux.getInput(), strat);
 //		pathlength = mazeAux.breadthSearchQueue(mazeAux.getInput(), strat);
 //		pathlength = mazeAux.pathPaint(mazeAux.deepSearchRec(mazeAux.getInput(), strat, false));
+        Maze.map_destroy(mazeAux);
         return pathlength;
     }
 
@@ -102,52 +134,37 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
     @SuppressLint("DrawAllocation")
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float xTemp = 1, yTemp = 1;
-//        setCellsXY(this.maze.getNcols(), this.maze.getNrows());
-        setIndentXY();
-//        for (int y = 0; y < mazeMap.length; y++) { for (int x = 0; x < mazeMap[y].length; x++) { char aux = getChar(x, y);if (aux != FileChars.ERRORCHAR.c && aux == FileChars.INPUT.c) { xTemp = (float) ((2 * x) * this.indentX);yTemp = (float) ((2 * y) * this.indentY); } } }
-        for (int y = 0; y < this.maze.getNrows()/*mazeMap.length*/; y++) {
-            for (int x = 0; x < this.maze.getNcols()/*mazeMap[y].length*/; x++) {
-                char aux = this.maze.getPoint(x, y).getSymbol()/*getChar(x, y)*/;
-                if (aux != FileChars.ERRORCHAR.c && aux == FileChars.INPUT.c) {
-                    xTemp = (float) ((2 * x + 0.0) * this.indentX);
-                    yTemp = (float) ((2 * y + 0.0) * this.indentY);
-                }
-            }
-        }
-//        Log.i(TAG+".onDraw", String.format("(yy, xx): [%s][%s]%n", yy, xx));Log.i(TAG+".onDraw", String.format("(h, w): [%s][%s]%n", height, width));Log.i(TAG+".onDraw", String.format("(iY, iX): [%s][%s]%n", indentY, indentX));Log.i(TAG+".onDraw", String.format("(Temp): [%s][%s]\n", yTemp, xTemp));Log.i(TAG+".onDraw", String.format("(yx+Temp): [%s][%s]\n", yy + yTemp, xx + xTemp));Log.i(TAG+".onDraw", String.format("(yx+Temp*index): [%s][%s]\n", yy + yTemp * indentY, xx + xTemp * indentX));
-        drawMaze(canvas, this.maze, xx /* * xTemp*/, yy /* * yTemp*/);
-//        drawCircle(canvas, xx + xTemp, yy + yTemp);
-        drawPlayer(canvas, xx + xTemp/* *4*/, yy + yTemp/* *4*/);
+        float indentX = (float) width / (2 * cellsX), indentY = (float) height / (2 * cellsY);
+        float xx = (actual.getX() - 1) * indentX, yy = (actual.getY() - 1) * indentY;
+        float xTemp = (2 * input.getX() - 1) * indentX, yTemp = (2 * input.getY() - 1) * indentY;
+        float xMaze = xx + indentX, yMaze = yy + indentY;
+//        float xCircle = xx + 2 * xTemp, yCircle = yy + 2 * yTemp;
+        float xPlayer = xx + xTemp, yPlayer = yy + yTemp;
+        drawMaze(canvas, xMaze, yMaze);
+//        drawCircle(canvas, xCircle, yCircle);
+        drawPlayer(canvas, xPlayer, yPlayer);
     }
 
-    public void drawMaze(Canvas canvas, Maze maze, float dX, float dY) {
-        maze.setDrawValues(/*getContext(),*/ bitmaps, this.cellsX, this.cellsY, this.width, this.height);
-        Log.i(TAG, "input: " + this.input + ", output: " + this.output + ", actual: " + this.actual);
-        maze.drawMaze(canvas, dX + indentX, dY + indentY);
-//        Toast.makeText(getContext(), actual.toString(), Toast.LENGTH_SHORT).show();
+    public void drawMaze(Canvas canvas, float dX, float dY) {
+        this.maze.setDrawValues(bitmaps, cellsX, cellsY, width, height);
+        Log.i(TAG, "input: " + input + ", output: " + output + ", actual: " + actual);
+        this.maze.drawMaze(canvas, dX, dY);
     }
 
     public void drawPlayer(Canvas canvas, float dX, float dY) {
         RectF drawRect = new RectF();
-        drawRect.set(0, 0, (float) indentX * 2, (float) indentY * 2);
-        drawRect.offsetTo(dX - indentX, dY - indentY);
+        drawRect.set(0, 0, (float) width / cellsX, (float) height / cellsY);
+        drawRect.offsetTo(dX, dY);
         canvas.drawBitmap(bitmaps[10], null, drawRect, null);
     }
 
-    public void drawCircle(Canvas canvas, float dX, float dY) {
-        android.graphics.Paint paint = new android.graphics.Paint();
-        paint.setColor(Color.CYAN);
-        paint.setStyle(android.graphics.Paint.Style.FILL);
-        canvas.drawCircle(dX, dY, Math.min(indentX, indentY), paint);
-    }
+//    public void drawCircle(Canvas canvas, float dX, float dY) { android.graphics.Paint paint = new android.graphics.Paint();paint.setColor(Color.CYAN);paint.setStyle(android.graphics.Paint.Style.FILL);canvas.drawCircle(dX, dY, Math.min(width / cellsX / 2, height / cellsY / 2), paint); }
 
     public boolean up() {
-        if (!this.hasGanado && this.actual != null) {
-            Point neighbor = maze.getNeighbor(this.actual, Movements.UP);
+        if (!hasGanado && actual != null) {
+            Point neighbor = maze.getNeighbor(actual, Movements.UP);
             Log.i(TAG, String.format("actual: %s --> neighbor: %s", actual, neighbor));
             if (neighbor != null && !neighbor.isErrorChar() && !neighbor.isBarrier()) {
-                this.yy -= this.indentY;
                 this.actual = neighbor;
                 onGanar();
                 invalidate();
@@ -160,11 +177,10 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
     }
 
     public boolean down() {
-        if (!this.hasGanado && this.actual != null) {
-            Point neighbor = maze.getNeighbor(this.actual, Movements.DOWN);
+        if (!hasGanado && actual != null) {
+            Point neighbor = maze.getNeighbor(actual, Movements.DOWN);
             Log.i(TAG, String.format("actual: %s --> neighbor: %s", actual, neighbor));
             if (neighbor != null && !neighbor.isErrorChar() && !neighbor.isBarrier()) {
-                this.yy += this.indentY;
                 this.actual = neighbor;
                 onGanar();
                 invalidate();
@@ -177,11 +193,10 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
     }
 
     public boolean left() {
-        if (!this.hasGanado && this.actual != null) {
-            Point neighbor = maze.getNeighbor(this.actual, Movements.LEFT);
+        if (!hasGanado && actual != null) {
+            Point neighbor = maze.getNeighbor(actual, Movements.LEFT);
             Log.i(TAG, String.format("actual: %s --> neighbor: %s", actual, neighbor));
             if (neighbor != null && !neighbor.isErrorChar() && !neighbor.isBarrier()) {
-                this.xx -= this.indentX;
                 this.actual = neighbor;
                 onGanar();
                 invalidate();
@@ -194,11 +209,10 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
     }
 
     public boolean right() {
-        if (!this.hasGanado && this.actual != null) {
-            Point neighbor = maze.getNeighbor(this.actual, Movements.RIGHT);
+        if (!hasGanado && actual != null) {
+            Point neighbor = maze.getNeighbor(actual, Movements.RIGHT);
             Log.i(TAG, String.format("actual: %s --> neighbor: %s", actual, neighbor));
             if (neighbor != null && !neighbor.isErrorChar() && !neighbor.isBarrier()) {
-                this.xx += this.indentX;
                 this.actual = neighbor;
                 onGanar();
                 invalidate();
@@ -211,7 +225,7 @@ public class MazeView extends androidx.appcompat.widget.AppCompatImageView {
     }
 
     public void onGanar() {
-        if (this.actual.equals(this.output)) this.hasGanado = true;
+        if (actual.equals(output)) this.hasGanado = true;
     }
 
     public boolean hasGanado() {

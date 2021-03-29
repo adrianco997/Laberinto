@@ -5,12 +5,15 @@
     android:layout_height="fill_parent"
     android:layout_gravity="center"
     android:layout_weight="1"
-    android:gravity="center">
+    android:background="@color/accent_material_light"
+    android:gravity="center"
+    tools:ignore="PrivateResource">
 
     <dm2e.adriancaballero.laberinto.MazeView
         android:id="@+id/MazeView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/accent_material_light"
-        android:scaleType="matrix" />
+        android:scaleType="matrix" >
+
+    </dm2e.adriancaballero.laberinto.MazeView>
 </LinearLayout>
