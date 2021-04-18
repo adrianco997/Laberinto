@@ -20,7 +20,7 @@ public /* static */ enum FileChars {
     BARRIER('+', R.string.BARRIER, R.drawable.xml_barrier),
     INPUT('i', R.string.INPUT, R.drawable.img_input),
     OUTPUT('o', R.string.OUTPUT, R.drawable.xml_output),
-    ERRORCHAR('E', R.string.ERRORCHAR, 0/*R.drawable.errorchar*/),;
+    ERRORCHAR('E', R.string.ERRORCHAR, R.drawable.xml_errorchar),;
     public final char c;public final @StringRes int label;public final @DrawableRes int image;
     FileChars(char c, @StringRes int label, @DrawableRes int image) { this.c = c;this.label = label;this.image = image; }
     public Bitmap getBitmap(Context contexto){ return BitmapFactory.decodeResource(contexto.getResources(), this.image); }

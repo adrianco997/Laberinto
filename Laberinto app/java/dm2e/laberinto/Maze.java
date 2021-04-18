@@ -45,9 +45,7 @@ public class Maze {
     public Maze(Context contexto) {
         this(contexto, new Point[Utils.MAX][Utils.MAX], -1, -1);
         for (int y = 0; y < Utils.MAX; y++) {
-            for (int x = 0; x < Utils.MAX; x++) {
-                this.coord[y][x] = null;
-            }
+            for (int x = 0; x < Utils.MAX; x++) this.coord[y][x] = null;
         }
     }
 
@@ -59,13 +57,9 @@ public class Maze {
      * Libera la memoria dinamica reservada para un mapa
      */
     public static void map_destroy(Maze pl) {
-        if (pl == null) {
-            return;
-        }
+        if (pl == null) return;
         for (int y = 0; y < Utils.MAX; y++) {
-            for (int x = 0; x < Utils.MAX; x++) {
-                pl.coord[y][x] = null;
-            }
+            for (int x = 0; x < Utils.MAX; x++) pl.coord[y][x] = null;
         }
         pl.coord = null;
         pl.drawRect = null;
@@ -92,9 +86,8 @@ public class Maze {
     public Point getInput() {
         for (int y = 0; y < getNrows(); y++) {
             for (int x = 0; x < getNcols(); x++) {
-                if (getPoint(x, y) != null && getPoint(x, y).isInput()) {
-                    return getPoint(x, y);
-                }
+                Point p = getPoint(x, y);
+                if (p != null && p.isInput()) return p;
             }
         }
         return null;
@@ -106,9 +99,8 @@ public class Maze {
     public Point getOutput() {
         for (int y = 0; y < getNrows(); y++) {
             for (int x = 0; x < getNcols(); x++) {
-                if (getPoint(x, y) != null && getPoint(x, y).isOutput()) {
-                    return getPoint(x, y);
-                }
+                Point p = getPoint(x, y);
+                if (p != null && p.isOutput()) return p;
             }
         }
         return null;
@@ -123,10 +115,8 @@ public class Maze {
      * @return The cell type
      */
     public Point getPoint(int x, int y) {
-        if (x < 0 || x > getNcols() || y < 0 || y > getNrows()) {
-            return null;
-        }
-        return this.coord[y][x];
+        if (x < 0 || x > getNcols() || y < 0 || y > getNrows()) return null;
+        else return this.coord[y][x];
     }
 
     /**
@@ -140,56 +130,34 @@ public class Maze {
         int x = p.getX(), y = p.getY();
         switch (strat) {
             case UP: {
-                if (y > 0) {
-                    if ((getPoint(x, y - 1) != null)) {
-                        y--;
-                    } else {
-                        Log.e("Maze.getNeighbor", String.format("coord[%d--][%d] no existe\n", x, y));
-                    }
-                } else {
-                    Log.e("Maze.getNeighbor", String.format("coord[%d--][%d] y es menor que nX=0 \n", x, y));
-                }
+                if (y > 0) if ((getPoint(x, y - 1) != null)) y--;
+                else Log.e(TAG, String.format("coord[%d--][%d] no existe\n", x, y));
+                else Log.e(TAG, String.format("coord[%d--][%d] y es menor que nX=0 \n", x, y));
                 break;
             }
             case DOWN: {
-                if (y < getNrows()) {
-                    if ((getPoint(x, y + 1) != null)) {
-                        y++;
-                    } else {
-                        Log.e("Maze.getNeighbor", String.format("coord[%d++][%d] no existe\n", x, y));
-                    }
-                } else {
-                    Log.e("Maze.getNeighbor", String.format("coord[%d++][%d] y es mayor que nY=%d\n", x, y, this.coord.length));
-                }
+                if (y < getNrows()) if ((getPoint(x, y + 1) != null)) y++;
+                else Log.e(TAG, String.format("coord[%d++][%d] no existe\n", x, y));
+                else
+                    Log.e(TAG, String.format("coord[%d++][%d] y es mayor que nY=%d\n", x, y, getCoord().length));
                 break;
             }
             case LEFT: {
-                if (x > 0) {
-                    if ((getPoint(x - 1, y) != null)) {
-                        x--;
-                    } else {
-                        Log.e("Maze.getNeighbor", String.format("coord[%d][%d--] no existe\n", x, y));
-                    }
-                } else {
-                    Log.e("Maze.getNeighbor", String.format("coord[%d][%d--] x es menor que nX=0 \n", x, y));
-                }
+                if (x > 0) if ((getPoint(x - 1, y) != null)) x--;
+                else Log.e(TAG, String.format("coord[%d][%d--] no existe\n", x, y));
+                else Log.e(TAG, String.format("coord[%d][%d--] x es menor que nX=0 \n", x, y));
                 break;
             }
             case RIGHT: {
-                if (x < getNcols()) {
-                    if ((getPoint(x + 1, y) != null)) {
-                        x++;
-                    } else {
-                        Log.e("Maze.getNeighbor", String.format("coord[%d][%d++] no existe\n", x, y));
-                    }
-                } else {
-                    Log.e("Maze.getNeighbor", String.format("coord[%d][%d++] x es mayor que nX=%d\n", x, y, this.coord[y].length));
-                }
+                if (x < getNcols()) if ((getPoint(x + 1, y) != null)) x++;
+                else Log.e(TAG, String.format("coord[%d][%d++] no existe\n", x, y));
+                else
+                    Log.e(TAG, String.format("coord[%d][%d++] x es mayor que nX=%d\n", x, y, getRows(y).length));
                 break;
             }
         }
-        Log.i(TAG, getPoint(x, y).toString());
-        return getPoint(x, y);//return (!getPoint(x,y).isBarrier()) ? getPoint(x,y) : p;
+        //Log.i(TAG, getPoint(x, y).toString());
+        return getPoint(x, y);
     }
 
     public Point getNeighbor(int x, int y, Movements strat) {
@@ -198,6 +166,10 @@ public class Maze {
 
     public Point[][] getCoord() {
         return this.coord;
+    }
+
+    public Point[] getRows(int y) {
+        return this.coord[y];
     }
 
     public float getCellWidth() {
@@ -212,9 +184,7 @@ public class Maze {
      * Indica el tamaño de un mapa, devuelve NULL si se produce algun error
      */
     public boolean setSize(int nX, int nY) {
-        if (nX <= 0 || nX > Utils.MAX || nY <= 0 || nY > Utils.MAX) {
-            return false;
-        }
+        if (nX <= 0 || nX > Utils.MAX || nY <= 0 || nY > Utils.MAX) return false;
         setNcols(nX);
         setNrows(nY);
         return true;
@@ -233,17 +203,14 @@ public class Maze {
             Log.e("Maze.java", "error en setPoint 2");
             return false;
         }
-        if (p.isInput() && getInput() != null) {
-            getInput().setSymbol(FileChars.SPACE.c);
-        } else if (p.isOutput() && getOutput() != null) {
-            getOutput().setSymbol(FileChars.SPACE.c);
-        }
+        if (p.isInput() && getInput() != null) getInput().setSymbol(FileChars.SPACE.c);
+        else if (p.isOutput() && getOutput() != null) getOutput().setSymbol(FileChars.SPACE.c);
         this.coord[y][x] = p;
         return true;
     }
 
-    public void setPoint(int x, int y, char symbol) {
-        setPoint(new Point(x, y, symbol));
+    public boolean setPoint(int x, int y, char symbol) {
+        return setPoint(new Point(x, y, symbol));
     }
 
     public void setNcols(int nX) {
@@ -275,7 +242,7 @@ public class Maze {
                 try {
                     txt.append(String.format("%c", getPoint(x, y).getSymbol()));
                 } catch (Exception e) {
-                    Log.e(TAG, String.format("[%2d, %2d] en [%2d, %2d)", y, x, getNcols(), getNrows()));
+                    Log.e(TAG, String.format("[%2d, %2d] en [%2d, %2d]", y, x, getNcols(), getNrows()));
                 }
             }
         }
@@ -301,36 +268,21 @@ public class Maze {
             List<String> lineas = new ArrayList<>();
             InputStream is = this.context.getApplicationContext().getResources().openRawResource(pf);
             Scanner sc = new Scanner(is);
-            if (sc.hasNextLine()) {
-                while (sc.hasNextLine()) {
-                    lineas.add(sc.nextLine());
-                }
-            }
-            if (lineas.isEmpty()) {
-                throw new Exception("Error in Maze.read.Files.readAllLines()");
-            }
+            if (sc.hasNextLine()) while (sc.hasNextLine()) lineas.add(sc.nextLine());
+            if (lineas.isEmpty()) throw new Exception("Error in Maze.read.Files.readAllLines()");
             /* asignamos dimension al laberinto */
             String[] nXY = lineas.get(0).split(" ");
             int nI = Integer.parseInt(nXY[0]), nJ = Integer.parseInt(nXY[1]);
-//            this.mazeMap = new Point[nI][nJ];
-            if (!setSize(nJ, nI)) {
-                throw new Exception("Error in read.setSize()");
-            }
-//            Log.i(TAG, "[y][x]:\t" + nI + "," + nJ + "\t" + lineas.size() + "," + lineas.get(1).length() + "\t" + getNrows() + "," + getNcols());
+            if (!setSize(nJ, nI)) throw new Exception("Error in read.setSize()");
             /* leemos el fichero linea a linea */
             for (int y = 0; y < nI; y++) {
                 char[] buff = lineas.get(y + 1).toCharArray();
                 for (int x = 0; x < nJ; x++) {
-                    setPoint(x, y, buff[x]);
-//                    Log.i(TAG, getPoint(x, y)+"\t");
-                    if (getPoint(x, y) == null) {
-                        throw new Exception(
-                                String.format("Error al introducir [%3d][%3d]: " + getPoint(x, y) + ".", y, x));
+                    if (!setPoint(x, y, buff[x])) {
+                        throw new Exception(String.format("Error al introducir [%3d][%3d]: " + getPoint(x, y) + ".", y, x));
                     }
                 }
-//                Log.i(TAG, "\n");
             }
-//            Log.i(TAG, to);
             sc.close();
             is.close();
             return true;
@@ -392,17 +344,19 @@ public class Maze {
         while (!stack.isEmpty()) {
             Point cp = stack.pop();
             if (!cp.isVisited()) {
-                if (!getPoint(cp.getX(), cp.getY()).setSymbol(Movements.VISITED.c)) { return -1; }
+                if (!getPoint(cp.getX(), cp.getY()).setSymbol(Movements.VISITED.c)) return -1;
                 for (int i = strat.length - 1; i >= 0; i--) {/* stack is LIFO-> movements with higher preference have to be checked last */
                     Point neighbor = getNeighbor(cp, strat[i]);
                     if (neighbor != null) {
                         if (neighbor.isOutput()) {
                             neighbor.setParent(getPoint(cp.getX(), cp.getY()));
                             return pathPaint(neighbor);
-                        }
-                        else if (neighbor.isSpace()) {
+                        } else if (neighbor.isSpace()) {
                             neighbor.setParent(getPoint(cp.getX(), cp.getY()));
-                            if (stack.push(neighbor) == null) { Log.e(TAG, "Error in stack_push.");return -1; }
+                            if (stack.push(neighbor) == null) {
+                                Log.e(TAG, "Error in stack_push.");
+                                return -1;
+                            }
                         }
                     }
                 }
@@ -420,17 +374,21 @@ public class Maze {
         while (!queue.isEmpty()) {
             Point cp = queue.remove();
             if (!cp.isVisited()) {
-                if (!cp.isInput()) { if (!getPoint(cp.getX(), cp.getY()).setSymbol(Movements.VISITED.c)) { return -1; } }
+                if (!cp.isInput()) {
+                    if (!getPoint(cp.getX(), cp.getY()).setSymbol(Movements.VISITED.c)) return -1;
+                }
                 for (Movements movements : strat) {/* queue is FIFO-> movements with higher preference have to be checked first */
                     Point neighbor = getNeighbor(cp, movements);
                     if (neighbor != null) {
                         if (neighbor.isOutput()) {
                             neighbor.setParent(getPoint(cp.getX(), cp.getY()));
                             return pathPaint(neighbor);
-                        }
-                        else if (neighbor.isSpace()) {
+                        } else if (neighbor.isSpace()) {
                             neighbor.setParent(getPoint(cp.getX(), cp.getY()));
-                            if (!queue.add(neighbor)) { Log.e(TAG, "Error in queue_insert.\n");return -1; }
+                            if (!queue.add(neighbor)) {
+                                Log.e(TAG, "Error in queue_insert.\n");
+                                return -1;
+                            }
                         }
                     }
                 }
@@ -443,17 +401,19 @@ public class Maze {
      * Realiza el recorrido completo de un mapa en busca del OUTPUT desde el INPUT, de manera recursiva.
      */
     public Point deepSearchRec(Point input, Movements[] strat, boolean compare) {
-        if (compare) { Log.i(TAG, "Current maze:\n" + toString()); }
-        if (input.isOutput()) { return input; }
+        if (compare) Log.i(TAG, "Current maze:\n" + toString());
+        if (input.isOutput()) return input;
         input.setSymbol(Movements.VISITED.c);
         for (Movements movements : strat) {
             Point neighbor = getNeighbor(input, movements);
-            if (neighbor != null) { if (!neighbor.isVisited() && !neighbor.isActual() && !neighbor.isBarrier()) {
-                neighbor.setParent(getPoint(input.getX(), input.getY()));
-                if (!neighbor.isOutput()) { neighbor.setSymbol(Movements.ACTUAL.c); }
-                Point auxpoint = deepSearchRec(neighbor, strat, compare);
-                if (auxpoint != null) {/*if(auxpoint.getParent().equals(input)){if(compare==true){System.out.println("Solution!");paintPath();}}*/return auxpoint; }
-            } }
+            if (neighbor != null) {
+                if (!neighbor.isVisited() && !neighbor.isActual() && !neighbor.isBarrier()) {
+                    neighbor.setParent(getPoint(input.getX(), input.getY()));
+                    if (!neighbor.isOutput()) neighbor.setSymbol(Movements.ACTUAL.c);
+                    Point auxpoint = deepSearchRec(neighbor, strat, compare);
+                    if (auxpoint != null) return auxpoint;
+                }
+            }
         }
         return null;
     }
@@ -461,15 +421,13 @@ public class Maze {
     public int pathPaint(Point output) {
         int pathlength = 0;
         Point cp = output;
-        if (cp == null) {
-            return -1;
-        }
+        if (cp == null) return -1;
         while (cp.getParent() != null) {
-            if (cp.getParent().getX() > cp.getX()) { cp.getParent().setSymbol(Movements.UP.c); }
-            else if (cp.getParent().getX() < cp.getX()) { cp.getParent().setSymbol(Movements.DOWN.c); }
-            else if (cp.getParent().getY() > cp.getY()) { cp.getParent().setSymbol(Movements.LEFT.c); }
-            else if (cp.getParent().getY() < cp.getY()) { cp.getParent().setSymbol(Movements.RIGHT.c); }
-            else { cp.getParent().setSymbol(Movements.ACTUAL.c); }
+            if (cp.getParent().getX() > cp.getX()) cp.getParent().setSymbol(Movements.UP.c);
+            else if (cp.getParent().getX() < cp.getX()) cp.getParent().setSymbol(Movements.DOWN.c);
+            else if (cp.getParent().getY() > cp.getY()) cp.getParent().setSymbol(Movements.LEFT.c);
+            else if (cp.getParent().getY() < cp.getY()) cp.getParent().setSymbol(Movements.RIGHT.c);
+            else cp.getParent().setSymbol(Movements.ACTUAL.c);
             cp = cp.getParent();
             pathlength++;
         }
@@ -480,9 +438,7 @@ public class Maze {
 
     public void paintPath() {
         Point cp = getOutput();
-        if (cp == null) {
-            return;
-        }
+        if (cp == null) return;
         while (cp.getParent() != null) {
             System.out.print(cp + " <-- ");
             cp = cp.getParent();
@@ -495,13 +451,12 @@ public class Maze {
         Scanner scan = new Scanner(System.in);
         Point input = getInput(), output = getOutput(), actual = input;
         int moves = 0;
-        char move;
         System.out.println("START");
         while (!actual.equals(output)) {
             System.out.println(Utils.formatL("", '-', 108));
             System.out.println(toString());
             System.out.printf("Moves: %3d              w%nIntroduce movimiento: a s d: ", moves);
-            move = scan.next().charAt(0);
+            char move = scan.next().charAt(0);
             try {
                 Point neighbor;
                 switch (move) {
@@ -526,12 +481,9 @@ public class Maze {
                     }
                 }
                 if (!neighbor.isOutput()) {
-                    if (!actual.isInput() && !actual.isOutput()) {
+                    if (!actual.isInput() && !actual.isOutput())
                         actual.setSymbol(FileChars.SPACE.c);
-                    }
-                    if (!neighbor.isInput()) {
-                        neighbor.setSymbol(Movements.ACTUAL.c);
-                    }
+                    if (!neighbor.isInput()) neighbor.setSymbol(Movements.ACTUAL.c);
                 } else {
                     System.out.println("isOutput");
                     actual.setSymbol(FileChars.SPACE.c);
@@ -560,23 +512,33 @@ public class Maze {
         this.bitmaps = bitmaps;
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        drawRect.set(0, 0, screenWidth / xPointsOnScreen, screenHeight / yPointsOnScreen);
-        //drawRect.set(0, 0, screenWidth / xPointsOnScreen, screenHeight / yPointsOnScreen);
-        //drawRect.set(0, 0, screenWidth / xPointsOnScreen, screenHeight / yPointsOnScreen);
-        System.out.printf("Maze:\t(sh,sw)[%s][%s]", screenHeight, screenWidth);
-        System.out.printf("Maze:\t(ycs,xcs)[%s][%s]", yPointsOnScreen, xPointsOnScreen);
-        System.out.printf("Maze:\t(sh/ycs,sw/xcs)[%s][%s]%n", screenHeight / yPointsOnScreen, screenWidth / xPointsOnScreen);
+        drawRect.set(0, 0, this.screenWidth / xPointsOnScreen, this.screenHeight / yPointsOnScreen);
+        System.out.printf("Maze:\tscreen size: [%s][%s]", this.screenHeight, this.screenWidth);
+        System.out.printf("\tPointsOnScreen: [%s][%s]", yPointsOnScreen, xPointsOnScreen);
+        System.out.printf("\tCell size: [%s][%s]", drawRect.height(), drawRect.width());
+        System.out.printf("\tscreen size -1 Cell: [%s][%s]\t", this.screenHeight - this.screenHeight / yPointsOnScreen, this.screenWidth - this.screenWidth / xPointsOnScreen);
+        System.out.println();
     }
 
-    /****/
+
 //    public String printMazeAll(Point p, int cellsX, int cellsY) { int pX = (p != null) ? p.getX() : -1, pY = (p != null) ? p.getY() : -1;StringBuilder txt = new StringBuilder();for (int y = 0; y < getNrows(); txt.append((y + 1 < getNrows()) ? "\n" : ""), y++) { for (int x = 0; x < getNcols(); x++) { try { if (x == pX && y == pY) txt.append(Movements.ACTUAL.c);else txt.append(String.format("%c", getPoint(x, y).getSymbol())); } catch (Exception e) { Log.e(TAG, String.format("[%2d, %2d] en [%2d, %2d)", y, x, getNcols(), getNrows())); } } }return txt.toString(); }
 //    public String printMazeBorder(Point p, int cellsX, int cellsY) { int pX = (p != null) ? p.getX() : -1, pY = (p != null) ? p.getY() : -1;StringBuilder txt = new StringBuilder();for (int y = -1; y <= getNrows(); txt.append((y + 1 <= getNrows()) ? "\n" : ""), y++) { for (int x = -1; x <= getNcols(); x++) { try { if (x == pX && y == pY) txt.append(Movements.ACTUAL.c);else if (x == -1 || y == -1) txt.append('#');else if (x == getNcols() || y == getNrows()) txt.append('%');else txt.append(String.format("%c", getPoint(x, y).getSymbol())); } catch (Exception e) { Log.e(TAG, String.format("[%2d, %2d] en [%2d, %2d)", y, x, getNcols(), getNrows())); } } }return txt.toString(); }
+
+    /**
+     * Draws the maze. Cells size should have positive values.
+     *
+     * @param p      The actual point
+     * @param cellsX The x number of cells to show
+     * @param cellsY The y number of cells to show
+     */
     public String printMaze(Point p, int cellsX, int cellsY) {
         int pX = (p != null) ? p.getX() : -1, pY = (p != null) ? p.getY() : -1;
         StringBuilder txt = new StringBuilder();
         int yCoord = (pY - 1 + cellsY <= getNrows()) ? pY - 1 : getNrows() - cellsY;
+        //yCoord = (pY - 1 < cellsY / 2) ? 0 : (pY - 1 + cellsY <= getNrows()) ? pY - cellsY / 2 : getNrows() - cellsY;
         for (int y = 0, nY = 0, flag = 0; y < getNrows() && nY < cellsY; y++) {
             int xCoord = (pX - 1 + cellsX <= getNcols()) ? pX - 1 : getNcols() - cellsX;
+            //xCoord = (pX - 1 < cellsX / 2) ? 0 : (pX - 1 + cellsX <= getNcols()) ? pX - cellsX / 2 : getNcols() - cellsX;
             for (int x = 0, nX = 0; x < getNcols() && nX < cellsX; x++) {
                 if (x == xCoord && y == yCoord) {
                     try {
@@ -606,22 +568,37 @@ public class Maze {
      * @param canvas Canvas for the drawing
      * @param viewX  The x coordinate of the view
      * @param viewY  The y coordinate of the view
+     * @param actual The position of the player
      */
-    public void drawMaze(Canvas canvas, float viewX, float viewY) {
-        float yCoord = -viewY;
-        for (int tileY = 0; tileY < coord.length && yCoord <= this.screenHeight; tileY++, yCoord += drawRect.height()) {
-            float xCoord = -viewX;
-            for (int tileX = 0; tileX < coord[(int) tileY].length && xCoord <= this.screenWidth; tileX++, xCoord += drawRect.width()) {
-                Bitmap bitmap = getBitmap(tileX, tileY);/*bitmaps[getBitmapN(tileX, tileY)];*//*bitmaps[coord[tileY][tileX]];*/
-                if (bitmap != null) {
-                    if (xCoord + drawRect.width() >= 0 && yCoord + drawRect.height() >= 0) {
+    public void drawMaze(Canvas canvas, float viewX, float viewY, Point actual) {
+        int cellsX = Math.round(screenWidth / drawRect.width()), cellsY = Math.round(screenHeight / drawRect.height());
+        float yCoord = -viewY, pY = actual.getY();
+        pY = (pY - 1 < cellsY / 2) ? 0 : (pY - 1 + cellsY <= getNrows()) ? pY - cellsY / 2 : getNrows() - cellsY;
+        for (int y = 0, ny = 0, flag = 0; y < getNrows() && yCoord <= screenHeight && ny <= cellsY; y++) {
+            float xCoord = -viewX, pX = actual.getX();
+            pX = (pX - 1 < cellsX / 2) ? 0 : (pX - 1 + cellsX <= getNcols()) ? pX - cellsX / 2 : getNcols() - cellsX;
+            for (int x = 0, nx = 0; x < getNcols() && xCoord <= screenWidth && nx <= cellsX; x++) {
+                if (x == pX && y == pY) {
+                    Bitmap bitmap = getBitmap(x, y);
+                    if (bitmap != null && xCoord + drawRect.width() >= 0 && yCoord + drawRect.height() >= 0) {
                         drawRect.offsetTo(xCoord, yCoord);
                         canvas.drawBitmap(bitmap, null, drawRect, null);
+                        if (y == actual.getY() && x == actual.getX()) {
+                            canvas.drawBitmap(bitmaps[10], null, drawRect, null);
+                        }
+                        xCoord += drawRect.width();
+                        pX++;
+                        nx++;
+                        flag = 1;
                     }
                 }
             }
+            if (flag == 1) {
+                pY++;
+                ny++;
+                yCoord += drawRect.height();
+            }
         }
-
     }
 
     public Bitmap getBitmap(int x, int y) {
@@ -666,7 +643,10 @@ public class Maze {
                 return bitmaps[10];
             }
         }
-        return bitmaps[99];
+        return bitmaps[4]; // ERRORCHAR
     }
+//    public Bitmap getBitmap(Point p) { char c = FileChars.ERRORCHAR.c;if (p != null && getPoint(p.getX(), p.getY()) != null) c = p.getSymbol();FileChars fc = FileChars.valueOf(c);Movements mc = Movements.valueOf(c);if (fc != null) switch (fc) { case SPACE: { return bitmaps[0]; } case BARRIER: { return bitmaps[1]; } case INPUT: { return bitmaps[2]; } case OUTPUT: { return bitmaps[3]; } case ERRORCHAR: { return bitmaps[4]; } }if (mc != null) switch (mc) { case UP: { return bitmaps[5]; } case DOWN: { return bitmaps[6]; } case LEFT: { return bitmaps[7]; } case RIGHT: { return bitmaps[8]; } case VISITED: { return bitmaps[9]; } case ACTUAL: { return bitmaps[10]; } }return bitmaps[4]; }
 //    public int    getBitmapN(int x, int y) { char c = getPoint(x, y).getSymbol();FileChars fc = FileChars.valueOf(c);Movements mc = Movements.valueOf(c);if (fc != null) switch (fc) { case SPACE: { return         0 ; } case BARRIER: { return         1 ; } case INPUT: { return         2 ; } case OUTPUT: { return         3 ; } case ERRORCHAR: { return         4 ; } }if (mc != null) switch (mc) { case UP: { return         5 ; } case DOWN: { return         6 ; } case LEFT: { return         7 ; } case RIGHT: { return         8 ; } case VISITED: { return         9 ; } case ACTUAL: { return         10 ; } }return         -1 ; }
 }
+
+

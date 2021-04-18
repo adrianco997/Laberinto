@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -34,20 +35,25 @@ public class MazePlayerTextActivity extends AppCompatActivity {
     //static final int AUDIO_PATH_RAW1 = R.raw.;
     private Point actual = null, input = null, output = null;
     private TextView mazeText = null, tvContador = null;
+    private boolean hasGanado = false;
     private Maze maze = null;
     private int moves = 0;
-    private boolean hasGanado = false;
-    int /*iniWidth, iniHeight,*/ cellsX = 5, cellsY = 5;
+    private int /*iniWidth, iniHeight,*/ cellsX = 5, cellsY = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mazeplayer_text);
         this.mazeText = findViewById(R.id.maze_text);
-        this.nombreJugador = getIntent().getStringExtra("nombre");
-        this.laberintoType = getIntent().getStringExtra("laberinto");
-        if (this.nombreJugador == null) this.nombreJugador = "jugador";
-        if (this.laberintoType == null) this.laberintoType = "m5";
+
+        if (getIntent() != null && getIntent().getStringExtra("nombre") != null) {
+            if (!getIntent().getStringExtra("nombre").equals(""))
+                this.nombreJugador = getIntent().getStringExtra("nombre");
+        } else this.nombreJugador = "jugador";
+        if (getIntent() != null && getIntent().getStringExtra("laberinto") != null) {
+            if (!getIntent().getStringExtra("laberinto").equals(""))
+                this.laberintoType = getIntent().getStringExtra("laberinto");
+        } else this.laberintoType = "m5";
 
         this.tvContador = findViewById(R.id.tvContador);
         TextView tv1 = findViewById(R.id.tv1);
@@ -57,10 +63,10 @@ public class MazePlayerTextActivity extends AppCompatActivity {
         findViewById(R.id.left).setOnClickListener(new DpadTextClick());
         findViewById(R.id.right).setOnClickListener(new DpadTextClick());
         //musica(AUDIO_PATH_RAW1);
-        play();
+        iniPlay();
     }
 
-    public void play() {
+    public void iniPlay() {
         if (!play(getResourceId(this.laberintoType, "raw"))) onFinish(null);
         this.moves = 0;
         this.hasGanado = false;
@@ -106,10 +112,11 @@ public class MazePlayerTextActivity extends AppCompatActivity {
             muestraMensaje("Error en recursiveSolver.");
             return -1;
         }
-//		System.out.println("Mapa:\n" + mazeAux.toString()+"\nInput:  " + mazeAux.getInput()+"\nOutput: " + mazeAux.getOutput());
+//		Log.i(TAG,("Mapa:\n" + mazeAux.toString()+"\nInput:  " + mazeAux.getInput()+"\nOutput: " + mazeAux.getOutput());
         pathlength = mazeAux.deepSearchStack(mazeAux.getInput(), strat);
 //		pathlength = mazeAux.breadthSearchQueue(mazeAux.getInput(), strat);
-//		pathlength = mazeAux.pathPaint(mazeAux.deepSearchRec(mazeAux.getInput(), strat, false));
+//		pathlength = mazeAux.pathPaint(mazeAux.deepSearchRec(mazeAux.getInput(), strat, false))
+        Maze.map_destroy(mazeAux);
         return pathlength;
     }
 
@@ -131,20 +138,20 @@ public class MazePlayerTextActivity extends AppCompatActivity {
             case R.id.x_size: {
                 if (this.cellsX < 10) this.cellsX += 1;
                 else this.cellsX = 3;
-                this.mazeText.setText(this.maze.printMaze(this.actual, this.cellsX, this.cellsY));
+                printMaze();
                 item.setTitle(getString(R.string.x_size, cellsX));
                 return true;
             }
             case R.id.y_size: {
                 if (cellsY < 10) this.cellsY += 1;
                 else this.cellsY = 3;
-                this.mazeText.setText(this.maze.printMaze(this.actual, this.cellsX, this.cellsY));
+                printMaze();
                 item.setTitle(getString(R.string.y_size, cellsY));
                 return true;
             }
             case R.id.restart: {
                 muestraMensaje("restart");
-                play();
+                iniPlay();
                 return true;
             }
             case R.id.help: {
@@ -221,10 +228,22 @@ public class MazePlayerTextActivity extends AppCompatActivity {
                 //boolean hayMovimiento = false;
                 Point neighbor = null;
                 switch (v.getId()) {
-                    case R.id.up: { neighbor = maze.getNeighbor(actual, Movements.UP);break; }
-                    case R.id.down: { neighbor = maze.getNeighbor(actual, Movements.DOWN);break; }
-                    case R.id.left: { neighbor = maze.getNeighbor(actual, Movements.LEFT);break; }
-                    case R.id.right: { neighbor = maze.getNeighbor(actual, Movements.RIGHT);break; }
+                    case R.id.up: {
+                        neighbor = maze.getNeighbor(actual, Movements.UP);
+                        break;
+                    }
+                    case R.id.down: {
+                        neighbor = maze.getNeighbor(actual, Movements.DOWN);
+                        break;
+                    }
+                    case R.id.left: {
+                        neighbor = maze.getNeighbor(actual, Movements.LEFT);
+                        break;
+                    }
+                    case R.id.right: {
+                        neighbor = maze.getNeighbor(actual, Movements.RIGHT);
+                        break;
+                    }
 //                    default: { throw new IllegalStateException("Unexpected value: " + v.getId()); }
                 }
                 if (neighbor != null && !neighbor.isErrorChar() && !neighbor.isBarrier()) {
@@ -232,8 +251,6 @@ public class MazePlayerTextActivity extends AppCompatActivity {
                     moves++;// if(temp.equals(actual)==false){moves++;}
                     tvContador.setText(String.format(getResources().getString(R.string.movimientos), moves));
                 }
-                //textView.getHeight()
-                //mazeText.setText(maze.printMaze(actual));//mazeText.setText(maze.toString());
                 printMaze();
                 if (actual.equals(output)) {
                     tvContador.setText(String.format(getResources().getString(R.string.movimientos), moves));
@@ -244,42 +261,33 @@ public class MazePlayerTextActivity extends AppCompatActivity {
         }
     }
 
+    // TODO: conseguir tamaño de mazeText al inicializar, comparar tamaño y tamaño de letra para asegurar que todo el printMaze() se muestra, cambiar tamaño de letra si no
     //public void printMaze0() { this.mazeText.setText(R.string.laberinto_text_1); }
-    //int width2, height2;
+    private int width2, height2;
+
     public void printMaze() {
-//        printMaze0();
-//        TextView
-        /*final LinearLayout
-                layout = (LinearLayout) findViewById(R.id.maze_text).getParent();//this.mazeText.getParent();
-                ViewTreeObserver vto = layout.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override public void onGlobalLayout() {if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) { layout.getViewTreeObserver().removeGlobalOnLayoutListener(this); } else { layout.getViewTreeObserver().removeOnGlobalLayoutListener(this); }width2  = layout.getMeasuredWidth();height2 = layout.getMeasuredHeight();}});*/
-        int width = this.mazeText.getWidth(), height = this.mazeText.getHeight();
-        int max_width = this.mazeText.getMaxWidth(), max_height = this.mazeText.getMaxHeight();
-        int min_width = this.mazeText.getMinWidth(), min_height = this.mazeText.getMinHeight();
-        int measured_width = this.mazeText.getMeasuredWidth(), measured_height = this.mazeText.getMeasuredHeight(); //get height
+//        final LinearLayout layout = (LinearLayout) findViewById(R.id.maze_text).getParent();//this.mazeText.getParent();//this.mazeText;
+//        ViewTreeObserver vto = layout.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {@Override public void onGlobalLayout() { if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) { layout.getViewTreeObserver().removeGlobalOnLayoutListener(this); } else { layout.getViewTreeObserver().removeOnGlobalLayoutListener(this); }width2 = layout.getMeasuredWidth();height2 = layout.getMeasuredHeight(); }});/**/
+        int width = this.mazeText.getWidth(), max_width = this.mazeText.getMaxWidth(), min_width = this.mazeText.getMinWidth(), measured_width = this.mazeText.getMeasuredWidth();
+        int height = this.mazeText.getHeight(), max_height = this.mazeText.getMaxHeight(), min_height = this.mazeText.getMinHeight(), measured_height = this.mazeText.getMeasuredHeight();
         float textSize = this.mazeText.getTextSize(), paintTextSize = this.mazeText.getPaint().getTextSize();
         StringBuilder txt = new StringBuilder();
         for (int i = 0; i < 8; i++) {
             txt.append(Utils.formatC("" + i, '$', 25)).append("\n");
         }
         this.mazeText.setText(txt.toString());
-        int size[] = getViewSize((View) this.mazeText.getParent());
-//        System.out.printf("Max size: [%s][%s]\n", max_height, max_width);
-//        System.out.printf("Min size: [%s][%s]\n", min_height, min_width);
-        //System.out.printf("Measured size: [%s][%s]\n", measured_height, measured_width);
-        System.out.printf("Size: [%s][%s] [%s][%s]\n", height, width, measured_height, measured_width);
-        //System.out.printf("Size2: [%s][%s]\n", size[0], size[1]);
-        //System.out.printf("TextSize: [%s][%s]\n", textSize, paintTextSize);
-        System.out.println(".");
+        int size[] = getViewSize((View) findViewById(R.id.maze_text).getParent());//this.mazeText.getParent();//this.mazeText;
+        System.out.printf("Size: [%s][%s]\tMax: [%s][%s]\tMin: [%s][%s]\tMeasured: [%s][%s]\n", height, width, max_height, max_width, min_height, min_width, measured_height, measured_width);
+        System.out.printf("Text y Paint Size: [%s][%s]\n", textSize, paintTextSize);
+        System.out.printf("getViewSize: [%s][%s]\n.", size[0], size[1]);
+        System.out.printf("Size2: [%s][%s]\n.", size[0], size[1]);
         //+   [  41][  18]  [20sp=30.0, max=25,8]
         //m1  [ 251][ 126]  [20sp=30.0, max=25,8]
         //m2  [ 253][ 126]  [20sp=30.0, max=25,8]
         //m3  [ 297][1476]  [20sp=30.0, max=25,8]
         //max [ 297][ 450]  [20sp=30.0, max=25,8]
-//        this.maze.setScreenSize(max_width, max_height);
-//        this.maze.setScreenSize(min_width, min_height);
-//        this.maze.setScreenSize(measured_width, measured_height);
+//        this.maze.setScreenSize(max_width, max_height);//this.maze.setScreenSize(min_width, min_height);//this.maze.setScreenSize(measured_width, measured_height);
         this.maze.setScreenSize(width, height);
         this.mazeText.setText(this.maze.printMaze(this.actual, this.cellsX, this.cellsY));/*this.mazeText.setText(this.maze.toString());*/
         //vacio->m1, 20sp
@@ -340,10 +348,31 @@ public class MazePlayerTextActivity extends AppCompatActivity {
         finish();
     }
 
-    public void musica(int music) { try { Musica.musicaRaw(this, music); } catch (IllegalArgumentException e) { Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_LONG).show();e.printStackTrace(); } }
-    @Override public void onPause() { super.onPause();if (Musica.getMp() != null && Musica.getMp().isPlaying()) { Musica.onPause();Musica.retirar(); }super.onPause(); }
-    protected void muestraMensaje(String txt) { Toast.makeText(this, txt, Toast.LENGTH_SHORT).show(); }
-    @Override public void onConfigurationChanged(@NonNull Configuration newConfig) {
+    public void musica(int music) {
+        try {
+            Musica.musicaRaw(this, music);
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Musica.getMp() != null && Musica.getMp().isPlaying()) {
+            Musica.onPause();
+            Musica.retirar();
+        }
+        super.onPause();
+    }
+
+    protected void muestraMensaje(String txt) {
+        Toast.makeText(this, txt, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 }

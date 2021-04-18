@@ -15,17 +15,13 @@ import androidx.annotation.StringRes;
  * @author Adrian Caballeo Orasio
  */
 public /* static */ enum Movements {
-    UP('^', R.string.UP, R.drawable.img_up),
-    DOWN('v', R.string.DOWN, R.drawable.img_donw),
-    LEFT('<', R.string.LEFT, R.drawable.img_left),
-    RIGHT('>', R.string.RIGHT, R.drawable.img_right),
-    /**
-     * Simbolo para un espacio ya visitado.</br>
-     */
-    VISITED('x', R.string.VISITED, 0/*R.drawable.visited*/),
-    /**
-     * Simbolo para un espacio actualmente ocupado.</br>
-     */
+    UP('^', R.string.UP, R.drawable.xml_up),
+    DOWN('v', R.string.DOWN, R.drawable.xml_donw),
+    LEFT('<', R.string.LEFT, R.drawable.xml_left),
+    RIGHT('>', R.string.RIGHT, R.drawable.xml_right),
+    /**Simbolo para un espacio ya visitado.</br>*/
+    VISITED('x', R.string.VISITED, R.drawable.xml_visited),
+    /**Simbolo para un espacio actualmente ocupado.</br>*/
     ACTUAL('P', R.string.ACTUAL, R.drawable.xml_actual),
     ;
     public final char c;

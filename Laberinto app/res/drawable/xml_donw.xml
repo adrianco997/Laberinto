@@ -5,7 +5,9 @@
     android:viewportWidth="200"
     android:viewportHeight="200">
 <!--    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M550.01 292.2L300.01 50L50 292.98L208.49 292.73L208.49 550L391.93 549.72L391.93 292.45L550.01 292.2Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>-->
-    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M50 307.78L299.99 550L550.01 307.03L391.52 307.27L391.53 50L208.1 50.27L208.08 307.54L50 307.78Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>
+    <group android:scaleX="0.33" android:scaleY="0.33">
+        <path android:fillColor="@color/arrows_color" android:pathData="M50 307.78L299.99 550L550.01 307.03L391.52 307.27L391.53 50L208.1 50.27L208.08 307.54L50 307.78Z" android:strokeWidth="2" android:strokeColor="#000000" />
+    </group>
 <!--    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M292.22 50L50 299.99L292.97 550.01L292.73 391.52L550 391.53L549.73 208.09L292.46 208.08L292.22 50Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>-->
 <!--    <group android:scaleX="0.33" android:scaleY="0.33"><path android:fillColor="@color/arrows_color" android:pathData="M307.81 550L550.01 300L307.03 50L307.28 208.49L50 208.49L50.29 391.93L307.56 391.93L307.81 550Z" android:strokeWidth="2" android:strokeColor="#000000" /></group>-->
 </vector>
